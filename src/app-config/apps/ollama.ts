@@ -45,6 +45,32 @@ export const ALL_MODELS: DownloadableModel[] = [
       { "parameterSize": "32b", "fileSize": "20GB" },
       { "parameterSize": "72b", "fileSize": "47GB" }
     ]
-  }
+  },
+  {
+    "displayName": "Mistral",
+    "installName": "mistral",
+    "tags":[
+      { "parameterSize": "7b", "fileSize": "4.1GB" }
+    ]
+  },
+  {
+    "displayName": "Phi-4",
+    "installName": "phi4",
+    "tags":[
+      { "parameterSize": "14b", "fileSize": "9.1GB" }
+    ]
+  },
+  {
+    "displayName": "Qwen 2.5 Coder",
+    "installName": "qwen2.5-coder",
+    "tags":[
+      { "parameterSize": "0.5b", "fileSize": "531MB" },
+      { "parameterSize": "1.5b", "fileSize": "986MB" },
+      { "parameterSize": "3b", "fileSize": "1.9GB" },
+      { "parameterSize": "7b", "fileSize": "4.7GB" },
+      { "parameterSize": "14b", "fileSize": "9.0GB" },
+      { "parameterSize": "32b", "fileSize": "20GB" }
+    ]
+  },
 
 ]
