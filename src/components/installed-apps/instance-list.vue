@@ -1,14 +1,22 @@
 <template>
-  <v-container class="mx-10 d-flex flex-column ga-2 "
-  style="width: 100%;" v-if="installedInstanceList && installedInstanceList.length > 0">
+  <v-container class="mx-4 ga-2 "
+  style="width: 100%; max-width: unset;" v-if="installedInstanceList && installedInstanceList.length > 0">
     <v-row>
       <v-col
       v-for="(item, index) in installedInstanceList" :key="index"
-      cols="6">
-      <InstalledInstanceItem
+      cols="12" sm="6" md="4" lg="3"  xl="2">
+      <!-- <InstalledInstanceItem
         :app-icon-url="item.appIcon"
         :instance-data="item" @deleted="onDeleted"
-        :app-name-visible="true" :icon-visible="true"></InstalledInstanceItem>
+        :app-name-visible="true" :icon-visible="true"></InstalledInstanceItem> -->
+
+      <SingleInstalledInstance
+        :app-icon-url="item.appIcon"
+        :bg-color="'#F9F9FF'"
+        :app-version-visible="false"
+        :instance-data="item" @deleted="onDeleted"
+        :app-name-visible="true" :icon-visible="true"></SingleInstalledInstance>
+
       </v-col>
     </v-row>
   </v-container>
@@ -24,6 +32,7 @@ import { getInstalledInstanceList } from '@/api/install-instance';
 // import { useLMAppStore } from '@/store'
 import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
 import InstalledInstanceItem from '../app-detail/installed-instance-item.vue';
+import SingleInstalledInstance from './new-style/single-installed-instance.vue';
 // const lmAppStore = useLMAppStore()
 const installedInstanceList = ref<InstalledInstanceDTO[] | null>(null)
 

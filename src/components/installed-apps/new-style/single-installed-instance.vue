@@ -1,20 +1,23 @@
 <template>
-  <v-sheet v-if="instanceData" background-color="#FFF6EE"
-      class="single-instance-card rounded-lg">
-      <v-card-text v-if="iconVisible && appIconUrl">
+  <v-sheet v-if="instanceData"
+      class="single-instance-card rounded-lg"
+      :style="`background-color: ${bgColor || '#FFF6EE'};`">
+      <v-card-text style="display: flex;">
+        <div v-if="iconVisible && appIconUrl">
         <v-img width="68" height="68" cover style="border-radius: 8px; cursor: pointer;" @click="gotoDetailPage"
           :alt="instanceData.name" :src="appIconUrl"></v-img>
+        </div>
+
+        <div style="flex: 1;">
+          <v-card-title v-if="appNameVisible" @click="gotoDetailPage"
+            style="font-size: 1.125rem; font-weight: bold; color: rgba(0,0,0,0.75); ">
+            {{ instanceData.name }}
+          </v-card-title>
+          <v-card-subtitle>
+            {{ $t('LMAppDetail.version') }} {{ instanceData.version }}
+          </v-card-subtitle>
+        </div>
       </v-card-text>
-
-      <!-- <v-card-title v-if="appNameVisible" @click="gotoDetailPage">
-        {{ instanceData.name }}
-      </v-card-title>
-      <v-card-subtitle>
-        {{ $t('LMAppDetail.version') }} {{ instanceData.version }}
-        &nbsp;
-
-        {{ DateTimeUtil.format(instanceData.createTime) }}
-      </v-card-subtitle> -->
 
       <template v-if="appVersionVisible">
         <div class="small-title-for-version" >
@@ -45,7 +48,7 @@
 
       <v-spacer class="mt-6"></v-spacer>
 
-      <v-btn variant="flat" color="primary" class="control-btn"
+      <v-btn variant="flat" class="control-btn"
         @click="startApp(instanceData.id)">
         {{ $t('LMAppDetail.RunApp') }}
       </v-btn>
@@ -70,9 +73,13 @@
   </v-sheet>
 </template>
 <style>
-.single-instance-card {
+/* .single-instance-card {
   background-color: #FFF6EE;
 }
+
+.single-instance-card-gray {
+  background-color: #F9F9FF;
+} */
 
 .small-title-for-version {
   padding-left: 20px;
@@ -108,6 +115,9 @@
   background-image: url('../images/app/run-btn-bg.png');
   background-repeat: no-repeat;
   background-size: auto 100%;
+  background-position-x: center;
+  color: #FFFFFF;
+  background-color: rgb(255 116 0);
 }
 
 </style>
@@ -125,6 +135,7 @@ import StorageSimpleBtn from '@/components/storage/storage-simple-btn.vue';
 
 const { t } = useLocale()
 
+
 // const currentInstanceVersion = ref('')
 
 // onMounted(() => {
@@ -136,6 +147,7 @@ const props = defineProps<{
   iconVisible: boolean,
   appVersionVisible: boolean,
   appIconUrl?: string,
+  bgColor?: string,
   instanceData: InstalledInstanceDTO
 }>()
 

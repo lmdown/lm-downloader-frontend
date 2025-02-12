@@ -13,7 +13,7 @@ export default {
     MyResources: 'System Stat',
     FastDownloadHome: 'Fast Download Apps',
     FastDownloadHomeSubtitle: 'Optimized download process',
-    MyInstalledApps: 'Installed AI apps',
+    MyInstalledApps: 'My AI Apps',
     MyInstalledAppsSubtitle: 'Manage installed Apps',
     MyComputerResources: 'My Device Stat',
     MyComputerResourcesSubtitle: "View your Computer's resources",
@@ -99,7 +99,8 @@ export default {
   },
 
   InstalledApps: {
-    MainTitle: 'Installed AI Apps',
+    MainTitle: 'My AI Apps',
+    SubTitle: 'AI Apps installed on this device',
     ImportOtherAIApp: 'Import App',
     UnderConstruction: 'This feature will be available in the next release.',
     NoApp: 'No App has been installed.',

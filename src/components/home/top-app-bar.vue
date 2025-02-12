@@ -6,8 +6,8 @@
         <v-img width="48" height="48" class="ml-7 mr-4" src="./images/icons/lmd-logo.png"></v-img>
         <VDivider vertical style="opacity: 1;" color="#EBEBF7"></VDivider>
         <VCard elevation="0" class="ml-0">
-          <VCardTitle class="lmd-app-title">{{ $t('App.title') }}</VCardTitle>
-          <VCardSubtitle class="lmd-app-subtitle">{{ $t('App.subtitle') }}</VCardSubtitle>
+          <VCardTitle class="lmd-app-title">{{ mainTitle || $t('App.title') }}</VCardTitle>
+          <VCardSubtitle class="lmd-app-subtitle">{{ subTitle || $t('App.subtitle') }}</VCardSubtitle>
         </VCard>
       </div>
     </template>
@@ -18,7 +18,10 @@
 </template>
 <script setup lang="ts">
 import TopRightControls from '@/components/common/top-right-controls.vue';
-
+defineProps<{
+  mainTitle?: string,
+  subTitle?: string,
+}>()
 </script>
 <style>
 .v-card .v-card-title {
@@ -42,5 +45,6 @@ import TopRightControls from '@/components/common/top-right-controls.vue';
   font-size: 16px;
   line-height: 105%;
   color: #424254;
+  opacity: 1;
 }
 </style>

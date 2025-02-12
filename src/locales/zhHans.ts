@@ -13,7 +13,7 @@ export default {
     MyResources: '资源总览',
     FastDownloadHome: '极速下载',
     FastDownloadHomeSubtitle: '适合国内用户',
-    MyInstalledApps: '已安装的AI',
+    MyInstalledApps: '我的AI',
     MyInstalledAppsSubtitle: '管理本机的AI应用',
     MyComputerResources: '我的设备',
     MyComputerResourcesSubtitle: '管理电脑硬件和资源',
@@ -91,7 +91,8 @@ export default {
     CardTitle: '欢迎贡献代码，和我们一起完善魔当(LM Downloader)。'
   },
   InstalledApps: {
-    MainTitle: '已安装的AI应用',
+    MainTitle: '我的AI',
+    SubTitle: '已安装的AI应用',
     ImportOtherAIApp: '导入其他AI应用',
     UnderConstruction: '此功能即将发布',
     NoApp: '还未安装AI应用',
