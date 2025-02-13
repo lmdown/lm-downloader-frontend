@@ -1,9 +1,9 @@
 <template>
   <v-sheet v-if="instanceData"
-      class="single-instance-card rounded-lg"
-      :style="`background-color: ${bgColor || '#FFF6EE'};`">
-      <v-card-text style="display: flex;">
-        <div v-if="iconVisible && appIconUrl">
+      :class="['single-instance-card', 'rounded-lg', cardColorStyleClass || 'instance-card-default'] "
+      :style="``">
+      <v-card-text style="display: flex;" v-if="iconVisible && appIconUrl">
+        <div>
         <v-img width="68" height="68" cover style="border-radius: 8px; cursor: pointer;" @click="gotoDetailPage"
           :alt="instanceData.name" :src="appIconUrl"></v-img>
         </div>
@@ -48,10 +48,15 @@
 
       <v-spacer class="mt-6"></v-spacer>
 
-      <v-btn variant="flat" class="control-btn"
+      <!-- <v-btn variant="flat" class="control-btn"
         @click="startApp(instanceData.id)">
         {{ $t('LMAppDetail.RunApp') }}
-      </v-btn>
+      </v-btn> -->
+
+      <a href="#" variant="flat" class="control-btn"
+        @click.prevent="startApp(instanceData.id)">
+        {{ $t('LMAppDetail.RunApp') }}
+      </a>
 
       <div style="text-align: center;" v-if="!instanceData.appInstallPath">
         <div class="mt-2"></div>
@@ -76,7 +81,6 @@
 /* .single-instance-card {
   background-color: #FFF6EE;
 }
-
 .single-instance-card-gray {
   background-color: #F9F9FF;
 } */
@@ -101,7 +105,6 @@
   display: flex;
   flex-direction: row;
   height: 40px;
-  background: #FFFFFF;
   border-radius: 8px;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -109,15 +112,111 @@
   margin-top: 8px;
 }
 
-.control-btn {
+/* for app detail page */
+.instance-card-default {
+  background-color: #FFF6EE;
+}
+
+.instance-card-default .app-info-item {
+  background: #FFFFFF;
+}
+
+.instance-card-default .control-btn {
   width: 100%;
   display: block;
   background-image: url('../images/app/run-btn-bg.png');
   background-repeat: no-repeat;
-  background-size: auto 100%;
-  background-position-x: center;
-  color: #FFFFFF;
+  background-size: auto;
+  /* background-position-x: center; */
+  color: #FFF;
   background-color: rgb(255 116 0);
+}
+
+
+/* for installed app list */
+.instance-card-gray {
+  border: 1px solid #EBEBF7;
+  background-color: #FFF;
+  transition: background-color .2s;
+  /* background-color: #F9F9FF; */
+}
+
+.instance-card-gray:hover {
+  background-color: #F9F9FF;
+  border-color: rgba(255, 255, 255, 0);
+}
+
+
+.instance-card-gray .app-info-item {
+  background: #F9F9FF;
+}
+
+.instance-card-gray:hover .app-info-item {
+  background: #FFF;
+}
+
+.instance-card-gray  .control-btn {
+  color: #000;
+}
+
+.single-instance-card .control-btn {
+  height: 2.5rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+
+  line-height: 220%;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  position: relative; /* 为伪元素定位设置相对位置 */
+  overflow: hidden;
+
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition: color 0.2s ease, background-color 0.2s ease 0s;
+}
+
+
+.single-instance-card .control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1; /* 将伪元素放置在文字下方 */
+  background-image: url('../images/app/run-btn-bg.png');
+  background-position: -120% 100%;
+  background-size: auto 100%;
+  opacity: 0.0;
+  background-color: rgba(249, 249, 255, 0);
+  transition: background-color 0.2s ease 0.2s, opacity 0.3s ease 0.0s, background-position 0.4s ease 0.3s;
+}
+
+.instance-card-gray .control-btn {
+  background-color: #F9F9FF;
+}
+
+.instance-card-gray .control-btn:hover {
+  color: #FFFFFF;
+  background-color: rgba(255, 116, 0, 1);
+}
+
+.single-instance-card .control-btn:hover::before {
+  opacity: 1; /* 慢慢显示背景图 */
+  background-position: center;
+  background-color: rgba(255, 116, 0, 1);
+  transition: background-color 0.2s ease 0.3s, opacity 0.3s ease 0.3s, background-position 0.3s ease 0.3s;
 }
 
 </style>
@@ -147,7 +246,9 @@ const props = defineProps<{
   iconVisible: boolean,
   appVersionVisible: boolean,
   appIconUrl?: string,
-  bgColor?: string,
+  cardColorStyleClass?: string,
+  // bgColor?: string,
+  // runBtnClass?: string,
   instanceData: InstalledInstanceDTO
 }>()
 

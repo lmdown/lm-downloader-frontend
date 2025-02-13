@@ -4,7 +4,7 @@
     <v-row>
       <v-col
       v-for="(item, index) in installedInstanceList" :key="index"
-      cols="12" sm="6" md="4" lg="3"  xl="2">
+      cols="12" xs="12" sm="6" md="4" lg="3"  xl="2">
       <!-- <InstalledInstanceItem
         :app-icon-url="item.appIcon"
         :instance-data="item" @deleted="onDeleted"
@@ -12,7 +12,7 @@
 
       <SingleInstalledInstance
         :app-icon-url="item.appIcon"
-        :bg-color="'#F9F9FF'"
+        card-color-style-class="instance-card-gray"
         :app-version-visible="false"
         :instance-data="item" @deleted="onDeleted"
         :app-name-visible="true" :icon-visible="true"></SingleInstalledInstance>
