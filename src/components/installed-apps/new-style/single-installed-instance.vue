@@ -28,7 +28,9 @@
         <v-tooltip :text="$t('LMAppDetail.installedAt')" location="top">
           <template v-slot:activator="{ props }">
             <div>
-              <v-img width="32" height="2rem" v-bind="props" src="./images/app/install-time.png"></v-img>
+              <v-img width="32" height="2rem" v-bind="props"
+                :src="cardColorStyleClass === '' ? './images/app/install-time.png' : './images/app/install-time.png'"
+                ></v-img>
             </div>
           </template>
         </v-tooltip>
@@ -39,7 +41,8 @@
 
       <div class="app-info-item align-center">
         <div>
-          <v-img width="2rem" height="2rem" src="./images/app/model-dir.png"></v-img>
+          <v-img width="2rem" height="2rem"
+            :src="cardColorStyleClass === '' ? './images/app/model-dir.png' : './images/app/model-dir-gray.png'"></v-img>
         </div>
         <v-btn variant="text" style="flex: 1;">
           {{ $t('LMAppDetail.appDirectory') }} >
@@ -70,21 +73,9 @@
         </v-btn>
         <div class=" pb-2"></div>
       </div>
-      <!-- <v-btn
-        variant="flat" color="light-green-lighten-5"
-        @click="refreshData()">
-        {{ $t('StorageDialog.Refresh') }}
-      </v-btn> -->
   </v-sheet>
 </template>
 <style>
-/* .single-instance-card {
-  background-color: #FFF6EE;
-}
-.single-instance-card-gray {
-  background-color: #F9F9FF;
-} */
-
 .small-title-for-version {
   padding-left: 20px;
   position: relative;
@@ -247,8 +238,6 @@ const props = defineProps<{
   appVersionVisible: boolean,
   appIconUrl?: string,
   cardColorStyleClass?: string,
-  // bgColor?: string,
-  // runBtnClass?: string,
   instanceData: InstalledInstanceDTO
 }>()
 
