@@ -15,7 +15,7 @@
   </v-sheet>
   <v-sheet class="d-flex flex-column ga-2 text-center justify-center"
       v-if="installedInstanceList && installedInstanceList.length === 0">
-      <v-img width="100%" height="171" src="./images/app/no-data.png"></v-img>
+      <v-img width="100%" height="160" src="./images/app/no-data.png"></v-img>
       <div style="font-size: 14px; color: #7D7D7D;" class="text-center">
         {{$t('LMAppDetail.notInstalled')}}
       </div>
