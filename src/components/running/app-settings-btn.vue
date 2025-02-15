@@ -88,7 +88,7 @@ import OllamaSettingUtil from '@/util/app-settings/OllamaSettingUtil';
 import { useLocale } from 'vuetify';
 import { useRunningInstanceStore } from '@/store/running-instance'
 import OSUtil from '@/util/OSUtil';
-import { restartLMDApp } from '@/client-api/lmd-system';
+import { exitLMDApp } from '@/client-api/lmd-system';
 
 const { t } = useLocale()
 
@@ -170,7 +170,7 @@ const onSubmit = async () => {
   if(OSUtil.isWindows()) {
     AppInfoUtil.killAppProcessed(props.installedInstance?.installName)
     setTimeout(() => {
-      restartLMDApp()
+      exitLMDApp()
     }, 1500)
   }
 }

@@ -12,6 +12,12 @@ export const restartLMDApp = async () => {
   }
 }
 
+export const exitLMDApp = async () => {
+  if (window.ipcRenderer) {
+    return await window.ipcRenderer?.invoke(IPCHandleName.EXIT_APP)
+  }
+}
+
 export const killProcesses = async (names: string[]) => {
   if (window.ipcRenderer) {
     return await window.ipcRenderer?.invoke(IPCHandleName.KILL_PROCESSES, names)
