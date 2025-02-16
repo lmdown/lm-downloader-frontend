@@ -29,6 +29,13 @@
       <v-btn class="ms-auto" text="关闭" @click="previewVisible = false"></v-btn>
     </template> -->
   </v-card>
+  <v-fab
+    icon="mdi-close"
+    location="bottom center"
+    absolute elevation="6"
+    offset
+    @click="previewVisible = false"
+  ></v-fab>
 </v-dialog>
 <!-- </v-container> -->
 </template>
