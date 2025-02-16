@@ -7,6 +7,9 @@ export default interface  LMDGlobalEnv  {
   // PIP_CACHE_DIR: string
   //
   HF_MIRROR: string
+
+  HF_HOME: string
+
   //
   GITHUB_PROXY: string
   //

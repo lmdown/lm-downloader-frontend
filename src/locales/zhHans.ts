@@ -82,9 +82,25 @@ export default {
     cancel: '取消',
     close: '关闭',
     DefaultStorageTitle: '默认存储配置',
-    DefaultStorageSubtitle: '应用和模型默认会存放于此。每个应用也可选择不同的安装路径。',
+    DefaultStorageSubtitle: '部分脚本、应用和模型文件，默认会存放于此。',
     DefaultStoragePathLabel: '默认存放路径',
-    DefaultStoragePathBrowse: '浏览',
+    DefaultStoragePathBrowse: '选择目录',
+    UseDefaultValue: '恢复默认',
+
+    HF_ENDPOINT_LABEL: 'HF_ENDPOINT (Hugging Face的镜像站，用于加速访问)',
+    HF_ENDPOINT_TIP: '如果你无法正常访问 huggingface.co，可以试着填入 https://hf-mirror.com/',
+
+    HFHOMEPathBrowse: '选择目录',
+    HF_HOME_LABEL: 'HF_HOME (Hugging Face模型和缓存等文件的目录)',
+    HF_HOME_TIP: '默认的模型目录会占用系统分区资源，您可以指定其他分区的目录，甚至是外接硬盘。建议使用固态硬盘，保证加载速度。',
+
+    GITHUB_PROXY_LABEL: 'GITHUB_PROXY (Github的HTTP代理，用于加速访问)',
+    GITHUB_PROXY_TIP: '如果你无法正常访问 github.com ，可以试着填入 https://gh.llkk.cc/',
+
+    GlobalVariablesTitle: '全局环境变量',
+    GlobalVariablesSubtitle: '如果不了解这些变量，请不要修改。',
+    DirNotValid: '目录中存在不相关文件，请重新选择。',
+    NoDefraultDirError: '未检测到默认存储目录，您可能需要更新软件。',
   },
   GitDialog: {
     DialogTitle: 'Git代码仓库',
@@ -165,7 +181,7 @@ export default {
     UseDefaultValue: '恢复默认',
     LocalAccess: '本地访问: ',
     RemoteAccess: '本地访问: ',
-    OllamaModelsDirInfoIconTip: 'Ollama默认的模型目录会占用系统分区资源，您可以指定其他分区的目录，甚至是外接硬盘。\n建议使用固态硬盘，保证加载速度。',
+    OllamaModelsDirInfoIconTip: '默认的模型目录会占用系统分区资源，您可以指定其他分区的目录，甚至是外接硬盘。\n建议使用固态硬盘，保证加载速度。',
     ModelsDirDefaultHint: '未找到OLLAMA_MODELS环境变量，使用默认模型文件目录。',
     ModelsDirExistHint: '检测到OLLAMA_MODELS环境变量。',
     DataNotValid: '数据异常，无法保存。',

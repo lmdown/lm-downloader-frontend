@@ -89,6 +89,7 @@ import { useLocale } from 'vuetify';
 import { useRunningInstanceStore } from '@/store/running-instance'
 import OSUtil from '@/util/OSUtil';
 import { exitLMDApp } from '@/client-api/lmd-system';
+import DirCheckUtil from '@/util/DirCheckUtil';
 
 const { t } = useLocale()
 
@@ -194,7 +195,7 @@ const browse = async () => {
   if (dirInfo && dirInfo.path) {
     appBaseSettings.value.modelsDir = dirInfo.path;
     console.log('dirInfo', dirInfo)
-    dirValid.value = OllamaSettingUtil.checkModelsDirValid(dirInfo, ['blobs'])
+    dirValid.value = DirCheckUtil.checkModelsDirValid(dirInfo, ['blobs'])
     console.log('dirValid.value', dirValid.value)
   }
 }

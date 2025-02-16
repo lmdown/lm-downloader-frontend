@@ -85,13 +85,25 @@ export default {
     close: 'Close',
     DefaultStorageTitle: 'Default Storage Configuration',
     DefaultStorageSubtitle:
-      'Apps and Large Models are stored here by default. Each App can also choose a different path.',
+      'Some scripts, Apps and Large Models are stored here by default.',
     DefaultStoragePathLabel: 'Default Storage Path',
     DefaultStoragePathBrowse: 'Browse',
+    UseDefaultValue: 'Restore',
+
+    HF_ENDPOINT_LABEL: 'HF_ENDPOINT (The Hub base URL of Hugging Face)',
+    HF_ENDPOINT_TIP: 'If you can\'t access huggingface.co properly, you can try setting this value to https://hf-mirror.com/',
+
+    HFHOMEPathBrowse: 'Browse',
+    HF_HOME_LABEL: 'HF_HOME (Model and Cache dir of Hugging Face)',
+    HF_HOME_TIP: 'The default directory consumes system partition resources.\nYou can specify directories for other partitions, or even external hard drives.\nIt is recommended to use an SSD to ensure loading speed.',
+
+    GITHUB_PROXY_LABEL: 'HF_ENDPOINT (HTTP Proxy for Github)',
+    GITHUB_PROXY_TIP: 'If you can\'t access github.com properly, you can try setting this value to https://gh.llkk.cc/',
 
     GlobalVariablesTitle: 'Global Environment Variables',
-    GlobalVariablesSubtitle:
-      'The variables of each App will override these. If you are not familiar with this, do not change.',
+    GlobalVariablesSubtitle: 'If you are not familiar with this, do not change.',
+    DirNotValid: 'There are unrelated files in the directory, please select another one.',
+    NoDefraultDirError: 'The default storage directory is not detected and you may need to update LM Downloader.',
   },
   GitDialog: {
     DialogTitle: 'Git Repository',

@@ -1,7 +1,8 @@
 import { IPCHandleName } from '@/constant/IPCHandleName'
-import LMDAppEnvVariables from '@/types/config/LMDGlobalEnv'
+import LMDGlobalEnv from '@/types/config/LMDGlobalEnv'
 import LMDBaseConfig from '@/types/config/LMDBaseConfig'
 import { StorageKey } from '@/constant/StorageKey'
+import LMDBaseConfigAndRootDir from '@/types/config/LMDBaseConfigAndRootDir'
 
 export const getBaseConfig = async () => {
   if (window.ipcRenderer) {
@@ -13,6 +14,20 @@ export const getBaseConfig = async () => {
 
 export const getBaseConfigFromStorage = () => {
   return JSON.parse(localStorage.getItem(StorageKey.LMD_BASE_CONFIG) || '')
+}
+
+
+export const getDefaultBaseConfig = async (): Promise<LMDBaseConfigAndRootDir | null> => {
+  let configAndDir: LMDBaseConfigAndRootDir | null = null
+  if (window.ipcRenderer) {
+    try {
+      configAndDir = await window.ipcRenderer?.invoke(IPCHandleName.GET_DEFAULT_CONFIG_AND_ROOT_DIR) || null
+    } catch(err) {
+      console.log(err)
+      return null
+    }
+  }
+  return configAndDir
 }
 
 export const getEnvVariables = async () => {
@@ -28,7 +43,7 @@ export const saveBaseConfig = async (configData: LMDBaseConfig) => {
   }
 }
 
-export const saveEnvVariables = async (envVars: LMDAppEnvVariables) => {
+export const saveEnvVariables = async (envVars: LMDGlobalEnv) => {
   const envVarsStr = JSON.stringify(envVars)
   // console.log('saveEnvVariables', envVars)
   // console.log('envVarsStr', envVarsStr)
