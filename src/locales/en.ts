@@ -83,10 +83,10 @@ export default {
     saveConfig: 'Save',
     cancel: 'Cancel',
     close: 'Close',
-    DefaultStorageTitle: 'Default Storage Configuration',
+    DefaultStorageTitle: 'Data Storage Configuration',
     DefaultStorageSubtitle:
-      'Some scripts, Apps and Large Models are stored here by default.',
-    DefaultStoragePathLabel: 'Default Storage Path',
+      'Some scripts, Apps and Large Models are stored here.',
+    DefaultStoragePathLabel: 'Storage Root Directory',
     DefaultStoragePathBrowse: 'Browse',
     UseDefaultValue: 'Restore',
 

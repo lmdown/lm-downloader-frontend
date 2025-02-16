@@ -81,9 +81,9 @@ export default {
     saveConfig: '保存',
     cancel: '取消',
     close: '关闭',
-    DefaultStorageTitle: '默认存储配置',
-    DefaultStorageSubtitle: '部分脚本、应用和模型文件，默认会存放于此。',
-    DefaultStoragePathLabel: '默认存放路径',
+    DefaultStorageTitle: '数据存储配置',
+    DefaultStorageSubtitle: '部分脚本、应用和模型文件，会存放于此。',
+    DefaultStoragePathLabel: '存储根目录',
     DefaultStoragePathBrowse: '选择目录',
     UseDefaultValue: '恢复默认',
 
