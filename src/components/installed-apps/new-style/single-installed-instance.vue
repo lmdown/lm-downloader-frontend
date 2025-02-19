@@ -27,26 +27,32 @@
       <div class="app-info-item align-center">
         <v-tooltip :text="$t('LMAppDetail.installedAt')" location="top">
           <template v-slot:activator="{ props }">
-            <div>
-              <v-img width="32" height="2rem" v-bind="props"
-                :src="cardColorStyleClass === '' ? './images/app/install-time.png' : './images/app/install-time.png'"
+            <div class="mx-1">
+              <v-img width="1.8rem" height="1.8rem" v-bind="props"
+                src="./images/app/install-time-gray.png"
                 ></v-img>
             </div>
           </template>
         </v-tooltip>
-        <div style="flex: 1; text-align: center;">
+        <div style="flex: 1;" class="text-left mx-1">
           {{ DateTimeUtil.format(instanceData.createTime) }}
         </div>
       </div>
 
       <div class="app-info-item align-center">
-        <div>
-          <v-img width="2rem" height="2rem"
-            :src="cardColorStyleClass === '' ? './images/app/model-dir.png' : './images/app/model-dir-gray.png'"></v-img>
+        <div class="mx-1">
+          <v-img width="1.8rem" height="1.8rem"
+            src="./images/app/model-dir-gray.png"></v-img>
         </div>
-        <v-btn variant="text" style="flex: 1;">
+        <a href="#" style="flex: 1;" class="text-left mx-1" @click.prevent="openFolder">
           {{ $t('LMAppDetail.appDirectory') }} >
-        </v-btn>
+          <v-tooltip activator="parent" location="top">
+            {{ instanceData.appInstallPath }}
+          </v-tooltip>
+        </a>
+        <!-- <v-btn variant="text" style="flex: 1;" class="text-left">
+          {{ $t('LMAppDetail.appDirectory') }} >
+        </v-btn> -->
       </div>
 
       <v-spacer class="mt-6"></v-spacer>
@@ -61,7 +67,7 @@
         {{ $t('LMAppDetail.RunApp') }}
       </a>
 
-      <div style="text-align: center;" v-if="!instanceData.appInstallPath">
+      <!-- <div style="text-align: center;" v-if="!instanceData.appInstallPath">
         <div class="mt-2"></div>
         <StorageSimpleBtn @deleted="onDeleted"
           :installed-instance="instanceData"></StorageSimpleBtn>
@@ -72,7 +78,7 @@
           {{ $t('StorageDialog.Refresh') }}
         </v-btn>
         <div class=" pb-2"></div>
-      </div>
+      </div> -->
   </v-sheet>
 </template>
 <style>
@@ -101,6 +107,12 @@
   margin-right: 1.5rem;
   font-size: 14px;
   margin-top: 8px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.app-info-item a {
+  color: rgba(0, 0, 0, 0.75);
+  text-decoration: none;
 }
 
 /* for app detail page */
@@ -222,6 +234,7 @@ import { useLocale } from 'vuetify';
 import router from "@/router"
 import { AppPageName } from '@/router/AppPagePath';
 import StorageSimpleBtn from '@/components/storage/storage-simple-btn.vue';
+import { openPath } from '@/client-api/config-file';
 
 const { t } = useLocale()
 
@@ -296,6 +309,14 @@ const onDeleted = () => {
 
 const refreshData = () => {
   emit('refresh')
+}
+
+const openFolder = () => {
+  // console.log(props.installedInstance.appInstallPath)
+  const appInstallPath = props.instanceData.appInstallPath
+  if (appInstallPath) {
+    openPath(props.instanceData.appInstallPath)
+  }
 }
 
 </script>

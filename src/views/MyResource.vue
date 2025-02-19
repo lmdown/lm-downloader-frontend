@@ -12,6 +12,8 @@
         <h1 class="text-center">
           {{ $t('MyDevices.UnderConstruction') }}
         </h1>
+        <v-img class="mx-auto"
+          width="auto" height="240" src="./images/app/no-data.png"></v-img>
       </v-col>
     </v-row>
   </v-container>

@@ -57,7 +57,7 @@
             {{item.text}}
           </v-tab>
         </v-tabs>
-        <v-tabs-window v-model="runningInstanceStore.currentTerminalTab" class="mx-2 my-0 px-0 pt-0 mb-0"
+        <v-tabs-window v-model="runningInstanceStore.currentTerminalTab" class="mx-2 my-0 px-0 pt-0 mb-0 pb-2"
            style="flex: 1; background-color: black; ">
           <v-tabs-window-item v-for="(item, index) in runningInstanceStore.terminals" style="flex: 1;"
             :key="item.text" :value="item.tabName" eager>

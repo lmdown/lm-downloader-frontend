@@ -6,12 +6,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 import importToCDN from 'vite-plugin-cdn-import'
 import VuetifyPlugin from 'vite-plugin-vuetify'
+// import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
   plugins: [
     vue(),
+    // visualizer({
+    //   open: true,
+    // }),
     AutoImport({
       imports: [
         'vue',
@@ -85,7 +89,7 @@ export default defineConfig({
     // },
   },
   build: {
-    // minify: 'terser',
+    minify: 'terser',
     target: 'es2022',
     sourcemap: false,
     cssMinify: 'lightningcss',
@@ -94,16 +98,37 @@ export default defineConfig({
       // Prevent vite remove unused exports
       // treeshake: false
       output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
+        manualChunks: {
+          vue: ['vue', 'vue-router'],
+          xterm: ['@xterm/addon-attach', '@xterm/addon-fit', '@xterm/addon-web-links'],
+          vuetify: [
+            'vuetify',
+            'vuetify/components',
+            'vuetify/locale',
+            'vuetify/locale/adapters/vue-i18n',
+            'vuetify/directives',
+          ],
+          pinia: ['pinia'],
+          vuei18n: ['vue-i18n'],
+          dayjs: ['dayjs'],
+          debounce: ['debounce'],
+          "pretty-bytes": ['pretty-bytes'],
+          'lmd-locales': [
+            'src/locales/en.ts',
+            'src/locales/zhHans.ts'
+          ],
+        },
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
       }
-    }
+    },
+
   },
   server: {
     proxy: {
       '/story-assets': {
-        target: 'http://localhost:19313',
+        target: 'http://127.0.0.1:19313',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ''),
       },
