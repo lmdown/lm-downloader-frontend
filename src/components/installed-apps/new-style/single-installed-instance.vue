@@ -155,7 +155,7 @@
   background: #FFF;
 }
 
-.instance-card-gray-hover .control-btn {
+.instance-card-gray .control-btn {
   color: #000;
 }
 

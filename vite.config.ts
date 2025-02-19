@@ -110,7 +110,10 @@ export default defineConfig({
           ],
           pinia: ['pinia'],
           vuei18n: ['vue-i18n'],
-          dayjs: ['dayjs'],
+          dayjs: [
+            'dayjs',
+            'dayjs/locale/zh-cn'
+          ],
           debounce: ['debounce'],
           "pretty-bytes": ['pretty-bytes'],
           'lmd-locales': [
