@@ -31,7 +31,6 @@
 import { getInstalledInstanceList } from '@/api/install-instance';
 // import { useLMAppStore } from '@/store'
 import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
-import InstalledInstanceItem from '../app-detail/installed-instance-item.vue';
 import SingleInstalledInstance from './new-style/single-installed-instance.vue';
 // const lmAppStore = useLMAppStore()
 const installedInstanceList = ref<InstalledInstanceDTO[] | null>(null)

@@ -1,7 +1,6 @@
 <template>
   <v-sheet v-if="instanceData"
-      :class="['single-instance-card', 'rounded-lg', cardColorStyleClass || 'instance-card-default'] "
-      :style="``">
+      :class="['single-instance-card', 'rounded-lg', cardColorStyleClass || 'instance-card-default', instanceCardHoverClass] " >
       <v-card-text style="display: flex;" v-if="iconVisible && appIconUrl">
         <div>
         <v-img width="68" height="68" cover style="border-radius: 8px; cursor: pointer;" @click="gotoDetailPage"
@@ -54,16 +53,15 @@
           {{ $t('LMAppDetail.appDirectory') }} >
         </v-btn> -->
       </div>
-
       <v-spacer class="mt-6"></v-spacer>
-
       <!-- <v-btn variant="flat" class="control-btn"
         @click="startApp(instanceData.id)">
         {{ $t('LMAppDetail.RunApp') }}
       </v-btn> -->
 
       <a href="#" variant="flat" class="control-btn"
-        @click.prevent="startApp(instanceData.id)">
+        @click.prevent="startApp(instanceData.id)"
+         @mouseenter="onRunBtnHover" @mouseleave="onRunBtnMoveOut">
         {{ $t('LMAppDetail.RunApp') }}
       </a>
 
@@ -135,7 +133,6 @@
   background-color: rgb(255 116 0);
 }
 
-
 /* for installed app list */
 .instance-card-gray {
   border: 1px solid #EBEBF7;
@@ -144,7 +141,7 @@
   /* background-color: #F9F9FF; */
 }
 
-.instance-card-gray:hover {
+.instance-card-gray-hover {
   background-color: #F9F9FF;
   border-color: rgba(255, 255, 255, 0);
 }
@@ -154,11 +151,11 @@
   background: #F9F9FF;
 }
 
-.instance-card-gray:hover .app-info-item {
+.instance-card-gray-hover .app-info-item {
   background: #FFF;
 }
 
-.instance-card-gray  .control-btn {
+.instance-card-gray-hover .control-btn {
   color: #000;
 }
 
@@ -228,19 +225,16 @@ import DateTimeUtil from '@/util/DateTimeUtil';
 // import StorageStatBtn from '../storage/storage-stat-btn.vue';
 import AppRunningUtil from '@/util/AppRunningUtil';
 import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
-import { useLocale } from 'vuetify';
+// import { useLocale } from 'vuetify';
 
 // import { getInstalledInstanceVer } from '@/api/install-instance';
 import router from "@/router"
 import { AppPageName } from '@/router/AppPagePath';
-import StorageSimpleBtn from '@/components/storage/storage-simple-btn.vue';
+// import StorageSimpleBtn from '@/components/storage/storage-simple-btn.vue';
 import { openPath } from '@/client-api/config-file';
 
-const { t } = useLocale()
-
-
+// const { t } = useLocale()
 // const currentInstanceVersion = ref('')
-
 // onMounted(() => {
 //   checkVer()
 // })
@@ -254,33 +248,44 @@ const props = defineProps<{
   instanceData: InstalledInstanceDTO
 }>()
 
-// const mainIconType = ref<string>('')
-const emit = defineEmits(['deleted', 'refresh'])
+const instanceCardHoverClass = ref('')
 
-interface IconInfo {
-  type: string | 'icon' | 'img'
-  value: string
-  installMethodStr: string
+// const mainIconType = ref<string>('')
+// const emit = defineEmits(['deleted', 'refresh'])
+
+// interface IconInfo {
+//   type: string | 'icon' | 'img'
+//   value: string
+//   installMethodStr: string
+// }
+
+const onRunBtnHover = () => {
+  instanceCardHoverClass.value = 'instance-card-gray-hover'
 }
 
-const installInstanceIcon = computed((): IconInfo | null => {
-  const lmdLogoPath = './images/icons/lmd-logo.png'
-  const iconInfo = {} as IconInfo
-  if (!props.instanceData) {
-    return null
-  }
-  const installMethod = props.instanceData.installMethod
-  if(installMethod==='import') {
-    iconInfo.type = 'icon'
-    iconInfo.value = 'mdi-application-import'
-    iconInfo.installMethodStr = t('InstalledApps.Imported')
-  } else {
-    iconInfo.type = 'img'
-    iconInfo.value = lmdLogoPath
-    iconInfo.installMethodStr = t('InstalledApps.InstalledByLMD')
-  }
-  return iconInfo
-})
+const onRunBtnMoveOut = () => {
+  instanceCardHoverClass.value = ''
+}
+
+
+// const installInstanceIcon = computed((): IconInfo | null => {
+//   const lmdLogoPath = './images/icons/lmd-logo.png'
+//   const iconInfo = {} as IconInfo
+//   if (!props.instanceData) {
+//     return null
+//   }
+//   const installMethod = props.instanceData.installMethod
+//   if(installMethod==='import') {
+//     iconInfo.type = 'icon'
+//     iconInfo.value = 'mdi-application-import'
+//     iconInfo.installMethodStr = t('InstalledApps.Imported')
+//   } else {
+//     iconInfo.type = 'img'
+//     iconInfo.value = lmdLogoPath
+//     iconInfo.installMethodStr = t('InstalledApps.InstalledByLMD')
+//   }
+//   return iconInfo
+// })
 
 // const checkVer = async () => {
 //   const version = await getInstalledInstanceVer(props.instanceData.installName)
@@ -303,13 +308,13 @@ const startApp = (instanceId: string) => {
   AppRunningUtil.openAppRunningWindow(instanceId, 'start')
 }
 
-const onDeleted = () => {
-  emit('deleted')
-}
+// const onDeleted = () => {
+//   emit('deleted')
+// }
 
-const refreshData = () => {
-  emit('refresh')
-}
+// const refreshData = () => {
+//   emit('refresh')
+// }
 
 const openFolder = () => {
   // console.log(props.installedInstance.appInstallPath)
