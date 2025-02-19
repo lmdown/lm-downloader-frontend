@@ -33,6 +33,10 @@
       <VCardText class="px-8 py-8">
         <div v-html="appStory.content"></div>
       </VCardText>
+      <v-card-text class="responsive-iframe-container">
+        <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113882819465634&bvid=BV1QdfnYwEFc&cid=28053735497&p=1&autoplay=0" scrolling="no" border="2" frameborder="no"
+          framespacing="0" allowfullscreen="true"></iframe>
+      </v-card-text>
     </v-row>
     <v-row v-if="appStory.relatedAppIds" class="flex-column">
       <v-card-title class="text-left py-6 px-0" width="100%" style="flex: 1; font-weight: bold">
@@ -42,6 +46,11 @@
       <!-- <VCardText v-html="appStory.relatedAppIds">
       </VCardText> -->
       <div height="12px" class="mb-7"></div>
+      <!-- <iframe src="//player.bilibili.com/player.html?aid=375588815&bvid=BV1so4y1m7U5&cid=339262048&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> -->
+
+      <!-- <iframe src="//player.bilibili.com/player.html?aid=375588815&bvid=BV1so4y1m7U5&cid=339262048&page=1&high_quality=1&danmaku=0" allowfullscreen="allowfullscreen" width="100%" height="500" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe> -->
+
+
     </v-row>
   </v-container>
 </template>
@@ -55,6 +64,35 @@
   border-radius: 16px;
   border: 1px solid #ebebf7;
 }
+
+.responsive-iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 50%;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.responsive-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 媒体查询：小屏幕设备 */
+@media (max-width: 768px) {
+    .article-container {
+        padding: 15px;
+    }
+
+    .responsive-iframe-container {
+        max-width: 100%; /* 在小屏幕上占满整个宽度 */
+    }
+}
+
 </style>
 <script lang="ts" setup>
 import { getRelatedAppList } from '@/api/app-info'

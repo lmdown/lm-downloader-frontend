@@ -6,14 +6,25 @@
     <div class="fullDescBlock overflow-y-hidden mx-6 mt-1 mb-4">
       <p ref="visibleText" v-html="lmAppData.desc" ></p>
     </div>
-    <v-fab class="mr-4"
-        v-if="hasMore"
-        :active="true"
-        @click="descDialogVisible = true"
-        prepend-icon="mdi-unfold-more-horizontal"
-        location="bottom end" extended absolute offset
-        :text="$t('LMAppDetail.More')"
-      ></v-fab>
+
+    <div class="text-right justify-end mr-2"
+      style="width: 100%; margin-top: -1rem; overflow: visible; height: 1rem;">
+      <v-btn class="mr-4" variant="text" size="small"
+      v-if="hasMore" :active="true"
+      @click="descDialogVisible = true"
+      prepend-icon="mdi-unfold-more-horizontal"
+      :text="$t('LMAppDetail.More')">
+      </v-btn>
+      <!-- <v-fab class="mr-4"
+      v-if="hasMore"
+      :active="true"
+      @click="descDialogVisible = true"
+      prepend-icon="mdi-unfold-more-horizontal"
+      location="bottom end" extended absolute offset
+      :text="$t('LMAppDetail.More')"
+    ></v-fab> -->
+    </div>
+
   </v-row>
   <v-dialog min-width="1000px" max-width="1300px"
       v-model="descDialogVisible"
