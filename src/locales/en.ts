@@ -141,6 +141,7 @@ export default {
     Show: 'Show',
     Access: 'Access',
     Install: 'Install',
+    Reinstall: 'Reinstall',
     Update: 'Update',
     Start: 'Start',
     Stop: 'Stop',

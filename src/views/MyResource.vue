@@ -9,11 +9,12 @@
   <v-container class="installed-apps-page mt-10">
     <v-row>
       <v-col>
-        <h1 class="text-center">
+        <v-img class="mx-auto mt-8"
+          width="auto" height="200" src="./images/app/no-data.png"></v-img>
+
+        <h1 class="text-center mt-8" style="font-size: 16px;">
           {{ $t('MyDevices.UnderConstruction') }}
         </h1>
-        <v-img class="mx-auto"
-          width="auto" height="240" src="./images/app/no-data.png"></v-img>
       </v-col>
     </v-row>
   </v-container>

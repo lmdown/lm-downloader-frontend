@@ -1,14 +1,21 @@
 <template>
   <v-layout>
-    <v-app-bar  elevation="1" class="px-2">
+    <v-app-bar elevation="0" class="px-6" height="92"
+      style=" background-color: #F3F3FA;">
       <template v-slot:prepend>
-        <v-img :src="lmAppData?.icon" width="60" height="60"></v-img>
-        <v-card-title>
-          {{ lmAppData?.name }}
-        </v-card-title>
-        <v-card-subtitle v-if="installedInstance?.version && installedInstance?.version !=='--' ">
-          {{ $t('AppRunningWindow.Version') }} {{ installedInstance?.version }}
-        </v-card-subtitle>
+        <div class="d-flex flex-row">
+          <v-img :src="lmAppData?.icon"
+              width="60" height="60"></v-img>
+          <div class="d-flex flex-column justify-center">
+            <v-card-title class="pt-1 pb-0">
+              {{ lmAppData?.name }}
+            </v-card-title>
+            <v-card-subtitle class="py-0"
+              v-if="installedInstance?.version && installedInstance?.version !=='--' ">
+              {{ $t('AppRunningWindow.Version') }} {{ installedInstance?.version }}
+            </v-card-subtitle>
+          </div>
+        </div>
       </template>
       <template v-slot:append>
         <!-- reinstall -->
@@ -16,11 +23,11 @@
           <template v-slot:prepend>
             <v-img src="./images/icons/lmd-logo.png" size="20" width="25" height="25"></v-img>
           </template>
-          {{ $t('AppRunningWindow.Install') }}</v-btn>
+          {{ $t('AppRunningWindow.Reinstall') }}</v-btn>
         <!-- update -->
-        <v-btn prepend-icon="mdi-autorenew" stacked v-show="updateBtnVisible" @click="updateApp">{{
+        <!-- <v-btn prepend-icon="mdi-autorenew" stacked v-show="updateBtnVisible" @click="updateApp">{{
           $t('AppRunningWindow.Update')
-        }}</v-btn>
+        }}</v-btn> -->
         <!-- stop -->
         <v-btn v-if="isAppRunning" stacked prepend-icon="mdi-stop" @click="stopApp()">{{
           $t('AppRunningWindow.Stop')
@@ -30,9 +37,9 @@
           $t('AppRunningWindow.Start')
         }}</v-btn>
         <!-- restart -->
-        <v-btn v-if="isAppRunning" stacked prepend-icon="mdi-refresh-circle" @click="restartApp()">
+        <!-- <v-btn v-if="isAppRunning" stacked prepend-icon="mdi-refresh-circle" @click="restartApp()">
           {{ $t('AppRunningWindow.Restart') }}
-        </v-btn>
+        </v-btn> -->
         <!-- app settings -->
         <app-settings-btn :installedInstance="installedInstance"></app-settings-btn>
         <!-- <div>- updateBtnVisible {{ updateBtnVisible }}</div>
@@ -212,7 +219,7 @@ const getTerminalComponent = () => {
 }
 const runCommand = (cmd: string) => {
   const terminalComponent = getTerminalComponent()
-  console.log('terminalComponent', terminalComponent, cmd)
+  console.log('main terminal run command', terminalComponent, cmd)
   terminalComponent?.runCommand(cmd)
 }
 

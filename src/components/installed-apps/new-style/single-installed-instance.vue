@@ -167,7 +167,7 @@
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 
-  line-height: 220%;
+  line-height: 250%;
   text-decoration: none;
   display: block;
   width: 100%;
@@ -175,7 +175,7 @@
 
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   position: relative; /* 为伪元素定位设置相对位置 */
   overflow: hidden;
 
@@ -260,7 +260,9 @@ const instanceCardHoverClass = ref('')
 // }
 
 const onRunBtnHover = () => {
-  instanceCardHoverClass.value = 'instance-card-gray-hover'
+  if(props.cardColorStyleClass === 'instance-card-gray') {
+    instanceCardHoverClass.value = 'instance-card-gray-hover'
+  }
 }
 
 const onRunBtnMoveOut = () => {

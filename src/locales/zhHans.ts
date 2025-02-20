@@ -137,6 +137,7 @@ export default {
     Show: '显示',
     Access: '访问',
     Install: '安装',
+    Reinstall: '重新安装',
     Update: '更新',
     Start: '启动',
     Stop: '停止',
