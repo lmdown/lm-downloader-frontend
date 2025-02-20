@@ -154,6 +154,8 @@ export default {
     ModelDownloadBtnLabel: "Download",
     ModelDownloaded: 'Downloaded',
     ModelNotDownloaded: 'Not Downloaded',
+    InstallSuccess: 'Installation successful.',
+
   },
   AppSettingDialog: {
     Title: "Settings for ",

@@ -150,6 +150,8 @@ export default {
     ModelDownloadBtnLabel: "下载",
     ModelDownloaded: '已下载',
     ModelNotDownloaded: '未下载',
+    InstallSuccess: '安装成功。',
+
   },
   AppSettingDialog: {
     Title: "设置",

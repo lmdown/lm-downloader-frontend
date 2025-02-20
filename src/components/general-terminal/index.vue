@@ -136,11 +136,14 @@ const initSocket = () => {
 }
 
 const checkStatus = () => {
-  if (props.commandExecuteEndKeywords && socket.value) {
-    const keywords = props.commandExecuteEndKeywords
+  // if (props.commandExecuteEndKeywords &&
+  if(socket.value) {
     socket.value.onmessage = (event) => {
       const dataStr: string = event.data
-
+      const keywords = props.commandExecuteEndKeywords
+      if(!keywords) {
+        return
+      }
       keywords.forEach(keyword => {
         if(dataStr.includes(keyword) && !foundEndKeywords.value.includes(keyword)) {
           foundEndKeywords.value.push(keyword)
@@ -148,14 +151,17 @@ const checkStatus = () => {
       })
 
       if(foundEndKeywords.value.length === keywords.length) {
-        if(!executeEndEmitted.value) {
+        // if(!executeEndEmitted.value) {
+        // console.log('emit executeEnd foundEndKeywords.value.length', foundEndKeywords.value.length)
+        // console.log('emit executeEnd keywords.length', keywords.length)
           emit('executeEnd')
           executeEndEmitted.value = true
-        }
+          foundEndKeywords.value = []
+        // }
       }
     }
-
   }
+  // }
 }
 
 const socketOnOpen = () => {

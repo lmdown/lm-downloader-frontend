@@ -95,6 +95,7 @@ import { useRunningInstanceStore } from '@/store/running-instance'
 import TerminalTabItem from '@/types/app-running/TerminalTabItem'
 import OSUtil from '@/util/OSUtil'
 import AppInfoUtil from '@/util/app-settings/AppInfoUtil'
+import { ShowToastMessage } from '@/types/toast-message-type'
 
 type GeneralTerminalType = InstanceType<typeof GeneralTerminal>
 type AppEnvAndAccessType = InstanceType<typeof AppEnvAndAccess>
@@ -113,10 +114,12 @@ const isAppRunning = ref(false)
 const envAndAccessAllowRender = ref(false)
 
 const startTimeStr = ref('--')
+const currentAction = ref('')
+
 const {t} = useLocale()
+const toast = inject<ShowToastMessage>('showToastMessage')
 
 const runningInstanceStore = useRunningInstanceStore()
-
 
 const updateBtnVisible = computed(() => {
   if (isAppRunning.value && !lmAppStore.currentLmApp.runtimeUpdateAllowed) {
@@ -144,13 +147,25 @@ onMounted(async () => {
   autoStartMainProcess()
 })
 
+const getDefaultAction = (): string => {
+  const script = route.query.script
+  let action:string //  = AppScriptType.START
+  if (script === AppScriptType.INSTALL) {
+    action = script
+  } else {
+    action = currentAction.value
+  }
+  return action
+}
+
 const initTerminals = () => {
+  // const action = getDefaultAction()
   const mainProcessTerminal: TerminalTabItem = {
     icon: 'mdi-application-brackets-outline',
     text: t('AppRunningWindow.MainProcessTab'),
     tabName: 'main-process',
     closable: false,
-    commandExecuteEndKeywords: ['lmd start script end.']
+    // commandExecuteEndKeywords: [`lmd ${action} script end.`]
   }
   runningInstanceStore.initTerminal(mainProcessTerminal)
 }
@@ -160,8 +175,14 @@ const restartApp = () => {
   startApp()
 }
 
+const changeMainTerminalScriptType = (scriptType: string) => {
+  currentAction.value = scriptType
+  runningInstanceStore.changeMainTerminalScriptType(scriptType)
+}
+
 const startApp = async () => {
   // runStopCommand()
+  changeMainTerminalScriptType(AppScriptType.START)
   isAppRunning.value = true
   if (lmAppData.value) {
     const command = await genStartCommand(lmAppData.value)
@@ -211,6 +232,7 @@ const exitApp = () => {
 
 const installApp = async () => {
   // runStopCommand()
+  changeMainTerminalScriptType(AppScriptType.INSTALL)
   if (lmAppData.value) {
     const command = await genInstallCommand(lmAppData.value)
     runCommand(command)
@@ -252,18 +274,27 @@ const autoStartMainProcess = async () => {
     startApp()
     if(OSUtil.isMacOS()) {
       setTimeout(()=>{
-        onMainTerminalCommandEnd()
+        showEnvAndAccessRows()
       }, 1000)
       return
     }
     return
   }
 
-  onMainTerminalCommandEnd()
+  showEnvAndAccessRows()
 }
 
-const onMainTerminalCommandEnd = () => {
+const showEnvAndAccessRows = () => {
   envAndAccessAllowRender.value = true
+}
+const onMainTerminalCommandEnd = () => {
+  showEnvAndAccessRows()
+  if (getDefaultAction() === AppScriptType.INSTALL) {
+    if(toast) {
+      const msg = t('AppRunningWindow.InstallSuccess')
+      toast(msg, 'success')
+    }
+  }
 }
 
 const onCommandExecuteEnd = () => {

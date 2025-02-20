@@ -11,6 +11,10 @@ export default class AppInfoUtil {
     return installName === 'ollama'
   }
 
+  static appIsSillyTavern(installName: string | undefined | null) {
+    return installName === 'sillytavern'
+  }
+
   static async getModelFileSize(
     installName: string | undefined | null,
     appEnv: object | undefined | null
