@@ -1,15 +1,12 @@
 <template>
-
-  <FloatingTitleCard :title="$t('AppRunningWindow.ModelDownload')">
+  <FloatingTitleCard
+    v-if="lmAppData && modelDownloadRowVisible"
+    :title="$t('AppRunningWindow.ModelDownload')">
     <v-sheet class="mx-5 model-download-sheet">
       <!-- :label="$t('AppRunningWindow.ModelName')" -->
       <v-card-subtitle class="px-0 mt-3 mb-1" style="color: #4F4F67;">
         {{ $t('AppRunningWindow.ModelName') }}
       </v-card-subtitle>
-      <div>
-        {{currentModel}} -
-        {{currentParameterSize}}
-      </div>
       <v-select
         :items="models" item-title="displayName" item-value="installName"
         v-model="currentModel"
@@ -77,9 +74,6 @@
 
     </v-sheet>
   </FloatingTitleCard>
-  <!-- <v-sheet class="my-0 py-0 mx-3 d-flex flex-row" style="gap: 0.5rem; align-items: center;"
-    v-if="lmAppData && modelDownloadRowVisible"> -->
-  <!-- </v-sheet> -->
 </template>
 <style>
 .installed-chip {
@@ -155,7 +149,7 @@ const openModelsDir = async () => {
 
 onMounted(async () => {
   updateVisibility()
-  getModelFileSize()
+  // getModelFileSize()
   await getAllModelsForApp()
 })
 
@@ -164,11 +158,11 @@ watch(() => props.lmAppData, () => {
 })
 
 watch(() => props.installedInstance, () => {
-  getModelFileSize()
+  // getModelFileSize()
   getAllModelsForApp()
 })
 watch(() => props.appEnv, () => {
-  getModelFileSize()
+// getModelFileSize()
   getAllModelsForApp()
 })
 
@@ -210,10 +204,10 @@ const updateParameterSizes = () => {
   }
 }
 
-const getModelFileSize = async () => {
-  allModelFileSize.value = await AppInfoUtil.getModelFileSize(
-      props.installedInstance?.installName, props.appEnv)
-}
+// const getModelFileSize = async () => {
+//   allModelFileSize.value = await AppInfoUtil.getModelFileSize(
+//       props.installedInstance?.installName, props.appEnv)
+// }
 
 const getAllModelsForApp = async () => {
   const installName = props.installedInstance?.installName
@@ -262,7 +256,7 @@ const startDownloadModel = async () => {
   const tabText = t('AppRunningWindow.ModelDownloadBtnLabel') + ' ' +installNameAndSize
   if(initCommand && currentModel.value) {
     if(AppInfoUtil.appIsOllama(props.lmAppData?.installName)) {
-      const toastMsg = tabText + ' ' + t('AppRunningWindow.ModelDeleteSuccessful')
+      const toastMsg = tabText + ' ' + t('AppRunningWindow.ModelDownloadSuccessful')
       runningInstanceStore.addInstallModelTerminal(installNameAndSize, tabText, initCommand, toastMsg)
     }
   }

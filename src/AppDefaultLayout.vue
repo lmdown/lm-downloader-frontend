@@ -1,6 +1,6 @@
 <!-- 这个组件没有左侧导航菜单 -->
 <template>
-  <v-app class="lmd-application" v-if="serverReady">
+  <v-app class="lmd-application" v-if="serverReady" style="overflow: hidden;">
     <!-- <top-system-bar></top-system-bar> -->
     <LeftNavDrawer></LeftNavDrawer>
     <v-main class="d-flex justify-center" style="min-height: 300px">

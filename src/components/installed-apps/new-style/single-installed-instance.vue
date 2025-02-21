@@ -236,6 +236,7 @@ import router from "@/router"
 import { AppPageName } from '@/router/AppPagePath';
 // import StorageSimpleBtn from '@/components/storage/storage-simple-btn.vue';
 import { openPath } from '@/client-api/config-file';
+import { AppScriptType } from '@/constant/AppScriptType';
 
 // const { t } = useLocale()
 // const currentInstanceVersion = ref('')
@@ -311,7 +312,7 @@ const gotoDetailPage = () => {
 }
 
 const startApp = (instanceId: string) => {
-  AppRunningUtil.openAppRunningWindow(instanceId, 'start')
+  AppRunningUtil.openAppRunningWindow(instanceId, AppScriptType.START)
 }
 
 // const onDeleted = () => {

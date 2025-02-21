@@ -18,26 +18,20 @@
         </div>
       </template>
       <template v-slot:append>
-        <v-btn height="100%" stacked v-show="updateBtnVisible" @click="reinstallApp">
+        <!-- <v-btn height="100%" stacked v-show="updateBtnVisible" @click="reinstallApp">
           <template v-slot:prepend>
             <v-img src="./images/icons/lmd-logo.png" width="28" height="28" style="margin-bottom: 3px; margin-top: 3px"></v-img>
-            <!-- <v-icon icon="mdi-play" size="32"></v-icon> -->
           </template>
           {{ $t('AppRunningWindow.Reinstall') }}
-        </v-btn>
-        <v-btn v-if="isAppRunning" width="80" height="100%"
-          stacked @click="stopApp()">
-          <template v-slot:prepend>
-            <v-icon icon="mdi-stop-circle-outline" size="32"></v-icon>
-          </template>
+        </v-btn> -->
+
+        <v-btn v-if="isAppRunning" variant="flat" color="#F2313F" class="mx-2" width="80" height="40"
+          @click="stopApp()">
           {{$t('AppRunningWindow.Stop')}}
         </v-btn>
         <!-- start -->
-        <v-btn v-else width="80" height="100%"
-          stacked @click="startApp()">
-          <template v-slot:prepend>
-            <v-icon size="32" icon="mdi-play-circle-outline"></v-icon>
-          </template>
+        <v-btn v-else color="primary" variant="flat" class="mx-2" width="80" height="40"
+          @click="startApp()">
           {{$t('AppRunningWindow.Start')}}
         </v-btn>
         <!-- app settings -->
@@ -259,6 +253,8 @@ const runDefaultScript = () => {
   const script = route.query.script
   if (script === AppScriptType.INSTALL) {
     installApp()
+  } else if (script === AppScriptType.START) {
+    startApp()
   }
 }
 
@@ -305,11 +301,9 @@ const onCommandExecuteEnd = (toastMsg) => {
   if(toast && toastMsg) {
     toast(toastMsg, 'success')
   }
-  console.log('delay1秒再取数据')
   setTimeout(() => {
-    console.log('开始取数据')
     appEnvAndAccessComponent.value?.updateAppEnvData()
-  }, 1000)
+  }, 400)
 
 }
 
@@ -325,9 +319,12 @@ const onCommandExecuteEnd = (toastMsg) => {
 
 .running-app-right-side-bar {
   width: 342px;
-  /* px-8 */
-  padding: 22px 30px;
+  padding: 12px 30px;
   border-left: 1px solid #DFDFEC;
+  height: 100%;
+  min-height: 100px;
+  overflow: auto;
+  height: calc(100vh - var(--v-layout-top));
 }
 
 </style>

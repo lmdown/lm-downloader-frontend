@@ -3,6 +3,9 @@
     <ModelDownloadRow :appEnv="appEnv" :installedInstance="installedInstance"
       :lmAppData="lmAppData"></ModelDownloadRow>
 
+    <AppModelStorageRow :appEnv="appEnv" :installedInstance="installedInstance">
+    </AppModelStorageRow>
+
     <app-access-row :appEnv="appEnv"
       :lmAppData="lmAppData"
       :installedInstance="installedInstance"></app-access-row>
@@ -22,6 +25,7 @@ import AppAccessRow from './app-access-row.vue'
 import AppInfoUtil from '@/util/app-settings/AppInfoUtil';
 import { useRunningInstanceStore } from '@/store/running-instance';
 import ModelDownloadRow from './model-download-row.vue';
+import AppModelStorageRow from './app-model-storage-row.vue';
 
 const props = defineProps<{
   installedInstance: InstalledInstanceDTO | null,

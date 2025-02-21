@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar elevation="0" class="window-drag pt-4">
+  <v-app-bar elevation="0" class="window-drag" height="80">
     <template v-slot:prepend>
-      <v-btn class="window-no-drag" @click="goBack" variant="plain">
+      <v-btn class="window-no-drag mt-4" @click="goBack" variant="plain">
         <!--  -->
         <v-icon
           class="lmd-back-icon mr-3"
@@ -14,19 +14,22 @@
       </v-btn>
     </template>
     <template v-slot:append>
-      <top-right-controls></top-right-controls>
+      <div class="mt-4">
+        <top-right-controls></top-right-controls>
+      </div>
     </template>
   </v-app-bar>
-  <v-container class="px-0 py-0" style="max-width: none">
+  <!-- height: calc(100vh - 80px);   -->
+  <v-container class="px-0 py-0" style="max-width: none; " >
     <v-row class="app-detail my-4 mx-6" >
-      <v-col cols="9">
-          <BasicInfoAndTags :lmAppData="lmAppData"></BasicInfoAndTags>
-          <AppSnapshotSlide v-if="lmAppData.snapshots" :snapshots="lmAppData.snapshots"></AppSnapshotSlide>
-          <v-spacer class="mb-4"></v-spacer>
-          <FullDescText :lm-app-data="lmAppData"></FullDescText>
+      <v-col cols="12" md="8" lg="9">
+        <BasicInfoAndTags :lmAppData="lmAppData"></BasicInfoAndTags>
+        <AppSnapshotSlide v-if="lmAppData.snapshots" :snapshots="lmAppData.snapshots"></AppSnapshotSlide>
+        <v-spacer class="mb-4"></v-spacer>
+        <FullDescText :lm-app-data="lmAppData"></FullDescText>
         <ExtraInfo :lmAppData="lmAppData"></ExtraInfo>
       </v-col>
-      <v-col class="app-detail-container-sidebar px-4" cols="3">
+      <v-col class="app-detail-container-sidebar px-4" cols="12" md="4" lg="3">
         <div style="font-size: 1.25rem; font-weight: bold;">{{ $t('LMAppDetail.InstallRecord') }}</div>
         <InstalledInfoList v-if="lmAppData.id" :lmAppData="lmAppData"></InstalledInfoList>
       </v-col>

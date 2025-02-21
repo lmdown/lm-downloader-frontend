@@ -12,8 +12,8 @@
   <FloatingTitleCard v-if="lmAppData && accessRowVisible"
     :title="$t('AppRunningWindow.Access')">
     <template v-if="accessUrls && accessUrls.length > 0">
-      <v-list class="py-0">
-        <v-list-item v-for="(url, index) in accessUrls" :key="index">
+      <v-list class="pt-1 pb-2">
+        <v-list-item v-for="(url, index) in accessUrls" :key="index" density="compact" min-height="1.1rem" class="px-5">
           <template v-slot:prepend>
             <v-img width="16" height="16" src="./images/icons/link.png"></v-img>
           </template>

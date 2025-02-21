@@ -17,11 +17,10 @@ export default class AppInfoUtil {
 
   static async getModelFileSize(
     installName: string | undefined | null,
-    appEnv: object | undefined | null
+    dirPath: string | null
   ): Promise<string> {
-    // console.log('getModelFileSize', installName, JSON.stringify(appEnv))
-    if(this.appIsOllama(installName) && appEnv) {
-      const dirPath = appEnv[OLLAMA_MODELS_KEY]
+    console.log('getModelFileSize', installName, dirPath)
+    if (this.appIsOllama(installName) && dirPath) {
       if(dirPath) {
         const fileSize = await getDirFileSize(dirPath)
         return prettyBytes(fileSize)
