@@ -1,5 +1,8 @@
 <template>
   <template v-if="appEnv && installedInstance">
+    <ModelDownloadRow :appEnv="appEnv" :installedInstance="installedInstance"
+      :lmAppData="lmAppData"></ModelDownloadRow>
+
     <app-access-row :appEnv="appEnv"
       :lmAppData="lmAppData"
       :installedInstance="installedInstance"></app-access-row>
@@ -7,8 +10,6 @@
     <app-env-row :appEnv="appEnv"
       :installedInstance="installedInstance"></app-env-row>
 
-    <ModelDownloadRow :appEnv="appEnv" :installedInstance="installedInstance"
-      :lmAppData="lmAppData"></ModelDownloadRow>
   </template>
 </template>
 <style></style>

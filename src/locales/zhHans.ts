@@ -149,10 +149,12 @@ export default {
     StorageBtnTip: '所有模型文件大小',
     ModelDownload: '模型下载',
     ModelDownloadBtnLabel: "下载",
+    ModelDeleteBtnLabel: "删除",
     ModelDownloaded: '已下载',
     ModelNotDownloaded: '未下载',
     InstallSuccess: '安装成功。',
-
+    ModelDeleteSuccessful: '模型删除成功。',
+    ModelDownloadSuccessful: '模型下载成功。',
   },
   AppSettingDialog: {
     Title: "设置",

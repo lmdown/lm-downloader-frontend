@@ -1,65 +1,119 @@
 <template>
-  <v-sheet class="my-0 py-0 mx-3 d-flex flex-row" style="gap: 0.5rem; align-items: center;"
-    v-if="lmAppData && modelDownloadRowVisible">
-        <div >
-        {{ $t('AppRunningWindow.ModelDownload') }}:
-        </div>
-        <!-- model name selection -->
-        <v-select class="flex-1"
-          :items="models" item-title="displayName" item-value="installName"
-          v-model="currentModel"
-          density="compact"
-          hide-details
-          :label="$t('AppRunningWindow.ModelName')"
-        ></v-select>
-        <!-- model size -->
-        <v-select class="flex-1"
-          :items="parameterSizes" item-title="parameterSize" item-value="parameterSize"
-          v-model="currentParameterSize"
-          density="compact"
-          hide-details
-          :label="$t('AppRunningWindow.ParameterSize')">
-          <template v-slot:selection="{ item }">
+
+  <FloatingTitleCard :title="$t('AppRunningWindow.ModelDownload')">
+    <v-sheet class="mx-5 model-download-sheet">
+      <!-- :label="$t('AppRunningWindow.ModelName')" -->
+      <v-card-subtitle class="px-0 mt-3 mb-1" style="color: #4F4F67;">
+        {{ $t('AppRunningWindow.ModelName') }}
+      </v-card-subtitle>
+      <div>
+        {{currentModel}} -
+        {{currentParameterSize}}
+      </div>
+      <v-select
+        :items="models" item-title="displayName" item-value="installName"
+        v-model="currentModel"
+        variant="outlined"
+        density="compact"
+        hide-details>
+      </v-select>
+
+      <v-card-subtitle class="px-0 mt-3 mb-1" style="color: #4F4F67;">
+        {{ $t('AppRunningWindow.ParameterSize') }}
+      </v-card-subtitle>
+      <v-select
+        :items="parameterSizes" item-title="parameterSize" item-value="parameterSize"
+        v-model="currentParameterSize"
+        variant="outlined"
+        density="compact"
+        hide-details>
+
+        <template v-slot:selection="{ item }">
+          {{ item.title }}
+          <v-chip density="default" class="mx-1 file-size-chip">
+            {{ item.raw.fileSize }}
+          </v-chip>
+          <v-chip density="default" v-if="item.raw.installed" class="installed-chip">
+            <span>{{ $t('AppRunningWindow.ModelDownloaded') }}</span>
+          </v-chip>
+          <v-chip density="default" v-else class="not-installed-chip">
+            <span>{{ $t('AppRunningWindow.ModelNotDownloaded') }}</span>
+          </v-chip>
+        </template>
+
+        <template v-slot:item="{ props, item }">
+          <v-list-item v-bind="props" density="compact">
+          <template v-slot:title>
             {{ item.title }}
-            <v-chip density="compact" class="mx-1" variant="flat" color="yellow-darken-2">
+            <v-chip density="compact" class="mx-1 file-size-chip">
               {{ item.raw.fileSize }}
             </v-chip>
-            <v-chip density="compact" variant="flat" color="green" v-if="item.raw.installed">
+            <v-chip density="compact" v-if="item.raw.installed" class="installed-chip">
               <span>{{ $t('AppRunningWindow.ModelDownloaded') }}</span>
             </v-chip>
-            <v-chip density="compact" v-else><span>{{ $t('AppRunningWindow.ModelNotDownloaded') }}</span></v-chip>
+            <v-chip density="compact" v-else class="not-installed-chip">
+              <span>{{ $t('AppRunningWindow.ModelNotDownloaded') }}</span>
+            </v-chip>
           </template>
-          <template v-slot:item="{ props, item }">
-            <v-list-item v-bind="props" density="compact">
-              <!-- :subtitle="item.raw.department" -->
-              <template v-slot:title>
-                {{ item.title }}
-                <v-chip density="compact" class="mx-1" variant="flat" color="yellow-darken-2">
-                  {{ item.raw.fileSize }}
-                </v-chip>
-                <v-chip density="compact" variant="flat" color="green" v-if="item.raw.installed">
-                  <span>{{ $t('AppRunningWindow.ModelDownloaded') }}</span>
-                </v-chip>
-                <v-chip density="compact"  v-else><span>{{ $t('AppRunningWindow.ModelNotDownloaded') }}</span></v-chip>
-              </template>
-            </v-list-item>
-          </template>
-        </v-select>
+        </v-list-item>
+      </template>
+    </v-select>
+    <v-card-actions  class="text-center justify-center py-6" >
 
-        <v-btn prepend-icon="mdi-download-outline" @click="startDownloadModel"
-          color="green-lighten-5" v-if="downloadBtnVisible">
-          {{ $t('AppRunningWindow.ModelDownloadBtnLabel') }}</v-btn>
+      <v-btn @click="startDownloadModel"
+        variant="flat" min-width="8rem"
+        color="primary"
+        v-if="downloadBtnVisible"
+        >
+        {{ $t('AppRunningWindow.ModelDownloadBtnLabel') }}
+      </v-btn>
 
-        <!-- {{ $t('AppRunningWindow.Storage') }} -->
-        <v-btn prepend-icon="mdi-folder-file-outline" color="amber-lighten-5" @click="openModelsDir">
-          {{ allModelFileSize }}
-          <v-tooltip activator="parent" location="top">
-            {{ $t('AppRunningWindow.StorageBtnTip') }}
-          </v-tooltip>
-        </v-btn>
-  </v-sheet>
+      <v-btn @click="deleteModel" class="del-btn"
+         min-width="8rem"
+        v-if="deleteBtnVisible">
+        {{ $t('AppRunningWindow.ModelDeleteBtnLabel') }}
+      </v-btn>
+    </v-card-actions>
+
+    </v-sheet>
+  </FloatingTitleCard>
+  <!-- <v-sheet class="my-0 py-0 mx-3 d-flex flex-row" style="gap: 0.5rem; align-items: center;"
+    v-if="lmAppData && modelDownloadRowVisible"> -->
+  <!-- </v-sheet> -->
 </template>
+<style>
+.installed-chip {
+  color: #0ABB1F;
+  background: #DFF4E2;
+  border-radius: 12px;
+  border: 1px solid rgba(10,187,31,0.29);
+}
 
+.not-installed-chip {
+  color:  #8C8C8C;
+  background: #EEEEEE;
+  border-radius: 12px;
+  border: 1px solid rgba(129,129,129,0.29);
+}
+
+.model-download-sheet .v-chip.v-chip--size-default {
+  padding: 0 4px;
+}
+
+.file-size-chip {
+  color: #FF7400;
+  background: #FFEEE2;
+  border-radius: 12px;
+  border: 1px solid rgba(255,134,24,0.21);
+}
+
+.model-download-sheet .del-btn {
+  color: #FF0000;
+  background: #FFF1F1;
+  border-radius: 4px;
+  border: 1px solid #FF0000;
+}
+</style>
 <script lang="ts" setup>
 import { openPath } from '@/client-api/config-file';
 import { useRunningInstanceStore } from '@/store/running-instance';
@@ -70,6 +124,7 @@ import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
 import AppInfoUtil from '@/util/app-settings/AppInfoUtil';
 import OllamaSettingUtil from '@/util/app-settings/OllamaSettingUtil';
 import { useLocale } from 'vuetify';
+import FloatingTitleCard from '../common/floating-title-card.vue';
 
 const runningInstanceStore = useRunningInstanceStore()
 
@@ -82,6 +137,7 @@ const currentParameterSize = ref<string | null>(null)
 
 const allModelFileSize = ref<string | null>(null)
 const downloadBtnVisible = ref(false)
+const deleteBtnVisible = ref(false)
 
 const {t} = useLocale()
 
@@ -133,8 +189,10 @@ const updateDownloadBtnVisibility = (parameterSize) => {
   if(sizeItem) {
     if(sizeItem.installed === undefined) {
       downloadBtnVisible.value = true
+      deleteBtnVisible.value = false
     } else {
       downloadBtnVisible.value = !sizeItem.installed
+      deleteBtnVisible.value = sizeItem.installed
     }
   }
 }
@@ -161,15 +219,38 @@ const getAllModelsForApp = async () => {
   const installName = props.installedInstance?.installName
   if(installName) {
     if(modelDownloadRowVisible.value) {
+      models.value = []
+      parameterSizes.value = []
+
       const downloadableModels = OllamaSettingUtil.getDownloadableModels()
       const mergedModelsList = await AppInfoUtil.mergeModelsList(installName, downloadableModels)
       models.value = mergedModelsList
+      console.log('mergedModelsList', mergedModelsList)
       // select first item
-      if(models.value && models.value.length > 0) {
-        const firstModel = models.value[0]
-        currentModel.value = firstModel.installName
+      if(!currentModel.value) {
+        if(models.value && models.value.length > 0) {
+          const firstModel = models.value[0]
+          currentModel.value = firstModel.installName
+        }
+      } else {
+        updateParameterSizes()
       }
     }
+  }
+}
+
+const deleteModel = async () => {
+  const installNameAndSize = `${currentModel.value}:${currentParameterSize.value}`
+  const initCommand =
+    AppInfoUtil.genModelDeleteCommand(
+      props.installedInstance?.installName, installNameAndSize)
+  const tabText = t('AppRunningWindow.ModelDeleteBtnLabel') + ' ' +installNameAndSize
+  if(initCommand && currentModel.value) {
+    if(AppInfoUtil.appIsOllama(props.lmAppData?.installName)) {
+      const toastMsg = tabText + ' ' + t('AppRunningWindow.ModelDeleteSuccessful')
+      runningInstanceStore.addDeleteModelTerminal(installNameAndSize, tabText, initCommand, toastMsg)
+    }
+    // runningInstanceStore.addTerminal(installNameAndSize, tabText, initCommand)
   }
 }
 
@@ -180,7 +261,10 @@ const startDownloadModel = async () => {
       props.installedInstance?.installName, installNameAndSize)
   const tabText = t('AppRunningWindow.ModelDownloadBtnLabel') + ' ' +installNameAndSize
   if(initCommand && currentModel.value) {
-    runningInstanceStore.addTerminal(installNameAndSize, tabText, initCommand)
+    if(AppInfoUtil.appIsOllama(props.lmAppData?.installName)) {
+      const toastMsg = tabText + ' ' + t('AppRunningWindow.ModelDeleteSuccessful')
+      runningInstanceStore.addInstallModelTerminal(installNameAndSize, tabText, initCommand, toastMsg)
+    }
   }
 }
 

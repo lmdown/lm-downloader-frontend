@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="my-1 py-1 mx-3"
+  <!-- <v-sheet class="my-1 py-1 mx-3"
     v-if="lmAppData && accessRowVisible">
     {{ $t('AppRunningWindow.Access') }}:
     <template v-if="accessUrls && accessUrls.length > 0">
@@ -8,7 +8,22 @@
         {{url}}
       </a>
     </template>
-  </v-sheet>
+  </v-sheet> -->
+  <FloatingTitleCard v-if="lmAppData && accessRowVisible"
+    :title="$t('AppRunningWindow.Access')">
+    <template v-if="accessUrls && accessUrls.length > 0">
+      <v-list class="py-0">
+        <v-list-item v-for="(url, index) in accessUrls" :key="index">
+          <template v-slot:prepend>
+            <v-img width="16" height="16" src="./images/icons/link.png"></v-img>
+          </template>
+          <a class="mx-2" :key="url" :href="url" target="_blank">
+            {{url}}
+          </a>
+        </v-list-item>
+      </v-list>
+    </template>
+  </FloatingTitleCard>
 </template>
 <style>
 </style>
@@ -18,6 +33,7 @@ import { AIAppDTO } from '@/types/AIAppDTO';
 import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
 import AppInfoUtil from '@/util/app-settings/AppInfoUtil';
 import OllamaSettingUtil from '@/util/app-settings/OllamaSettingUtil';
+import FloatingTitleCard from '../common/floating-title-card.vue';
 
 const props = defineProps<{
   lmAppData: AIAppDTO | null

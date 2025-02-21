@@ -5,4 +5,5 @@ export default interface TerminalTabItem {
   closable: boolean
   initCommand?: string
   commandExecuteEndKeywords?: string[]
+  commandExecuteEndToastMsg?: string
 }

@@ -1,5 +1,5 @@
 <template>
-  <div ref="terminalOutContainer" class="mb-2" style="height: 100%; width: 100%;">
+  <div ref="terminalOutContainer" class="mb-0" style="height: 100%; width: 100%;">
     <div ref="terminalContainer" class="terminal" style="height: 300px; width: 100%;"></div>
   </div>
 </template>
@@ -216,4 +216,5 @@ const resizeTerminal = (width: number, height: number) => {
 
 </script>
 <style>
+
 </style>

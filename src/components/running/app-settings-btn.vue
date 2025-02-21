@@ -1,8 +1,10 @@
 <template>
-  <v-btn prepend-icon="mdi-cog" stacked
-    v-if="settingsBtnVisible" @click="showDialog">{{
-      $t('AppRunningWindow.Settings')
-    }}
+  <v-btn stacked width="80" height="100%"
+    v-if="settingsBtnVisible" @click="showDialog">
+    <template v-slot:prepend>
+      <v-icon size="32" icon="mdi-cog"></v-icon>
+    </template>
+    {{ $t('AppRunningWindow.Settings') }}
   </v-btn>
 
   <v-dialog v-model="dialogVisible" min-width="400" max-width="800">

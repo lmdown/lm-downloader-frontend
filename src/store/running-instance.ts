@@ -41,27 +41,57 @@ export const useRunningInstanceStore = defineStore('runningInstance', {
         console.error(err)
       }
     },
-    initTerminal(mainProcessTerminal: TerminalTabItem) {
+    initTerminal(tabDisplayText: string) {
+      const mainProcessTerminal: TerminalTabItem = {
+        icon: 'mdi-application-brackets-outline',
+        text: tabDisplayText,
+        tabName: 'main-process',
+        closable: false,
+        // commandExecuteEndKeywords: [`lmd ${action} script end.`]
+      }
       this.terminals = [mainProcessTerminal]
       this.currentTerminalTab = mainProcessTerminal.tabName
     },
-    addTerminal(tabName: string, tabText: string, initCommand: string) {
-      const targetTab = this.terminals.find(item => item.tabName === tabName)
+    addTerminal(terminalData: TerminalTabItem) {
+      const targetTab = this.terminals.find(item => item.tabName === terminalData.tabName)
       if(!targetTab) {
-        this.terminals.push({
-          // icon: 'mdi-file-download-outline',
-          text: tabText,
-          tabName: tabName,
-          initCommand: initCommand,
-          closable: true,
-          commandExecuteEndKeywords: ['digest', 'writing manifest', 'success'],
-        })
+        console.log('addTerminal', terminalData.commandExecuteEndKeywords)
+        this.terminals.push(terminalData)
       }
-      this.currentTerminalTab = tabName
+
+      this.currentTerminalTab = terminalData.tabName
     },
     removeTerminal(item: TerminalTabItem, index: number) {
+      this.currentTerminalTab = 'main-process'
       this.terminals.splice(index, 1)
     },
+    addInstallModelTerminal(installNameAndSize: string, tabText: string, initCommand: string, endToastMsg: string) {
+      const terminalData =
+      {
+        // icon: 'mdi-file-download-outline',
+        text: tabText,
+        tabName: tabText,
+        initCommand: initCommand,
+        closable: true,
+        commandExecuteEndKeywords: ['digest', 'writing manifest', 'success'],
+        commandExecuteEndToastMsg: endToastMsg
+      }
+      this.addTerminal(terminalData)
+    },
+    addDeleteModelTerminal(installNameAndSize: string, tabText: string, initCommand: string, endToastMsg: string) {
+      const terminalData =
+      {
+        // icon: 'mdi-file-download-outline',
+        text: tabText,
+        tabName: tabText,
+        initCommand: initCommand,
+        closable: true,
+        commandExecuteEndKeywords: [`deleted '${installNameAndSize}'`],
+        // commandExecuteEndKeywords: [`Error: model '${installNameAndSize}' not found`], // If it dose not exist.
+        commandExecuteEndToastMsg: endToastMsg
+      }
+      this.addTerminal(terminalData)
+    }
 
   },
 });

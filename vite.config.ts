@@ -110,6 +110,7 @@ export default defineConfig({
           ],
           pinia: ['pinia'],
           vuei18n: ['vue-i18n'],
+          "vue-easy-lightbox": ['vue-easy-lightbox'],
           dayjs: [
             'dayjs',
             'dayjs/locale/zh-cn'

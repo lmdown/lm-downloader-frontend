@@ -11,6 +11,7 @@ export const APP_CONFIG = {
 }
 
 export const ALL_MODELS: DownloadableModel[] = [
+
   {
     "displayName": "Deepseek-R1",
     "installName": "deepseek-r1",

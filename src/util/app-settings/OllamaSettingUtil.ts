@@ -61,7 +61,7 @@ export default class OllamaSettingUtil {
   }
 
   static getDownloadableModels(): DownloadableModel[] {
-    return ALL_MODELS
+    return JSON.parse(JSON.stringify(ALL_MODELS))
   }
 
 }

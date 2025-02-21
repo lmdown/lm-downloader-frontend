@@ -153,10 +153,12 @@ export default {
     StorageBtnTip: 'The size of all model files',
     ModelDownload: 'Model Download',
     ModelDownloadBtnLabel: "Download",
+    ModelDeleteBtnLabel: "Delete",
     ModelDownloaded: 'Downloaded',
     ModelNotDownloaded: 'Not Downloaded',
     InstallSuccess: 'Installation successful.',
-
+    ModelDeleteSuccessful: 'Model Delete Successful.',
+    ModelDownloadSuccessful: 'Model Download Successful.',
   },
   AppSettingDialog: {
     Title: "Settings for ",

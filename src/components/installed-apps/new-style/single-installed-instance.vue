@@ -133,6 +133,10 @@
   background-color: rgb(255 116 0);
 }
 
+.instance-card-default a:hover.control-btn {
+  color: #FFF;
+}
+
 /* for installed app list */
 .instance-card-gray {
   border: 1px solid #EBEBF7;

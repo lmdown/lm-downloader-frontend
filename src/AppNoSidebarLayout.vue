@@ -9,10 +9,14 @@
 </template>
 
 <script setup lang="ts">
-// import { RouterView } from 'vue-router'
+import { healthCheck } from './api/server-check';
+
 onMounted(() => {
   const htmlEl = document.querySelector('html') as HTMLElement;
   htmlEl.setAttribute('running-window', '');
+  healthCheck().then(()=>{
+    postMessage({ payload: 'removeLoading' }, '*')
+  })
 })
 
 onBeforeUnmount(() => {

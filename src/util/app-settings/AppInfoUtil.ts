@@ -45,7 +45,19 @@ export default class AppInfoUtil {
     installNameAndSize: string
   ): string {
     if(this.appIsOllama(appInstallName) && installNameAndSize) {
-      return `ollama pull ${installNameAndSize}`
+      return `
+ollama pull ${installNameAndSize}`
+    }
+    return ''
+  }
+
+  static genModelDeleteCommand(
+    appInstallName: string | null | undefined,
+    installNameAndSize: string
+  ): string {
+    if(this.appIsOllama(appInstallName) && installNameAndSize) {
+      return `
+ollama rm ${installNameAndSize}`
     }
     return ''
   }

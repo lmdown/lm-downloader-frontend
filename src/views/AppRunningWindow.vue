@@ -1,7 +1,7 @@
 <template>
   <v-layout>
-    <v-app-bar elevation="0" class="px-6" height="92"
-      style=" background-color: #F3F3FA;">
+    <v-app-bar elevation="0" class="px-6 running-app-bar" height="92"
+      style=" background-color: #F3F3FA;" >
       <template v-slot:prepend>
         <div class="d-flex flex-row">
           <v-img :src="lmAppData?.icon"
@@ -18,71 +18,74 @@
         </div>
       </template>
       <template v-slot:append>
-        <!-- reinstall -->
-        <v-btn stacked v-show="updateBtnVisible" @click="reinstallApp">
+        <v-btn height="100%" stacked v-show="updateBtnVisible" @click="reinstallApp">
           <template v-slot:prepend>
-            <v-img src="./images/icons/lmd-logo.png" size="20" width="25" height="25"></v-img>
+            <v-img src="./images/icons/lmd-logo.png" width="28" height="28" style="margin-bottom: 3px; margin-top: 3px"></v-img>
+            <!-- <v-icon icon="mdi-play" size="32"></v-icon> -->
           </template>
-          {{ $t('AppRunningWindow.Reinstall') }}</v-btn>
-        <!-- update -->
-        <!-- <v-btn prepend-icon="mdi-autorenew" stacked v-show="updateBtnVisible" @click="updateApp">{{
-          $t('AppRunningWindow.Update')
-        }}</v-btn> -->
-        <!-- stop -->
-        <v-btn v-if="isAppRunning" stacked prepend-icon="mdi-stop" @click="stopApp()">{{
-          $t('AppRunningWindow.Stop')
-        }}</v-btn>
+          {{ $t('AppRunningWindow.Reinstall') }}
+        </v-btn>
+        <v-btn v-if="isAppRunning" width="80" height="100%"
+          stacked @click="stopApp()">
+          <template v-slot:prepend>
+            <v-icon icon="mdi-stop-circle-outline" size="32"></v-icon>
+          </template>
+          {{$t('AppRunningWindow.Stop')}}
+        </v-btn>
         <!-- start -->
-        <v-btn v-else stacked prepend-icon="mdi-play" @click="startApp()">{{
-          $t('AppRunningWindow.Start')
-        }}</v-btn>
-        <!-- restart -->
-        <!-- <v-btn v-if="isAppRunning" stacked prepend-icon="mdi-refresh-circle" @click="restartApp()">
-          {{ $t('AppRunningWindow.Restart') }}
-        </v-btn> -->
+        <v-btn v-else width="80" height="100%"
+          stacked @click="startApp()">
+          <template v-slot:prepend>
+            <v-icon size="32" icon="mdi-play-circle-outline"></v-icon>
+          </template>
+          {{$t('AppRunningWindow.Start')}}
+        </v-btn>
         <!-- app settings -->
         <app-settings-btn :installedInstance="installedInstance"></app-settings-btn>
-        <!-- <div>- updateBtnVisible {{ updateBtnVisible }}</div>
-        <div>- runtimeUpdateAllowed {{ lmAppStore.currentLmApp.runtimeUpdateAllowed }}</div> -->
+
       </template>
     </v-app-bar>
-    <v-main class="mx-1 running-window-main mb-3">
-      <v-sheet fluid class="d-flex flex-column" style="height: 100%">
-        <app-env-and-access
-          ref="appEnvAndAccessComponent"
-          @appEnvSavedAndUpdated="onAppEnvSavedAndUpdated"
-          :lmAppData="lmAppData" v-if="installedInstance && lmAppData && envAndAccessAllowRender"
-          :installedInstance="installedInstance"></app-env-and-access>
-        <v-tabs class="mx-2"
-          v-model="runningInstanceStore.currentTerminalTab" align-tabs="start" color="primary" >
-          <v-tab :value="item.tabName"
-            :key="item.tabName" v-for="(item, index) in runningInstanceStore.terminals">
-            <template v-slot:append>
-              <v-icon v-if="item.closable" icon="mdi-close-circle-outline"
-                @click.stop="closeTab(item, index)"></v-icon>
-            </template>
-            {{item.text}}
-          </v-tab>
-        </v-tabs>
-        <v-tabs-window v-model="runningInstanceStore.currentTerminalTab" class="mx-2 my-0 px-0 pt-0 mb-0 pb-2"
-           style="flex: 1; background-color: black; ">
-          <v-tabs-window-item v-for="(item, index) in runningInstanceStore.terminals" style="flex: 1;"
-            :key="item.text" :value="item.tabName" eager>
-            <GeneralTerminal
-              @execute-end="onMainTerminalCommandEnd"
-              :command-execute-end-keywords="item.commandExecuteEndKeywords"
-              ref="generalTerminal" v-if="item.tabName === 'main-process'"
-              socketURI="ws://localhost:19312"></GeneralTerminal>
-            <GeneralTerminal
-              @execute-end="onCommandExecuteEnd"
-              v-else :command-execute-end-keywords="item.commandExecuteEndKeywords"
-              :initCommand="item.initCommand" socketURI="ws://localhost:19312"></GeneralTerminal>
-            <!-- <GeneralTerminal :ref="(el) => createTerminalRef(index, el as GeneralTerminalType)" v-else
-              :initCommand="item.initCommand"
-              socketURI="ws://localhost:19312"></GeneralTerminal> -->
-          </v-tabs-window-item>
-        </v-tabs-window>
-      </v-sheet>
+    <v-main class="running-window-main mb-0 d-flex">
+      <!-- <v-row style="height: 100%;"> -->
+        <v-sheet fluid class="d-flex flex-column" style="height: 100%; flex: 1; min-width: 0; overflow: hidden;">
+          <v-tabs class="mx-0"
+            v-model="runningInstanceStore.currentTerminalTab" align-tabs="start" color="primary" >
+            <v-tab :value="item.tabName"
+              :key="item.tabName" v-for="(item, index) in runningInstanceStore.terminals">
+              <template v-slot:append>
+                <v-icon v-if="item.closable" icon="mdi-close-circle-outline"
+                  @click.stop="closeTab(item, index)"></v-icon>
+              </template>
+              {{item.text}}
+            </v-tab>
+          </v-tabs>
+          <v-tabs-window v-model="runningInstanceStore.currentTerminalTab"
+            class="mx-0 my-0 pt-0 mb-0"
+            style="flex: 1; padding-left: 4px; background-color: black; padding-bottom: 6px;">
+            <v-tabs-window-item v-for="(item, index) in runningInstanceStore.terminals" style="flex: 1;"
+              :key="item.text" :value="item.tabName" eager>
+              <GeneralTerminal
+                @execute-end="onMainTerminalCommandEnd"
+                :command-execute-end-keywords="item.commandExecuteEndKeywords"
+                ref="generalTerminal" v-if="item.tabName === 'main-process'"
+                socketURI="ws://localhost:19312"></GeneralTerminal>
+              <GeneralTerminal
+                @execute-end="onCommandExecuteEnd(item.commandExecuteEndToastMsg)"
+                v-else :command-execute-end-keywords="item.commandExecuteEndKeywords"
+                :initCommand="item.initCommand" socketURI="ws://localhost:19312"></GeneralTerminal>
+              <!-- <GeneralTerminal :ref="(el) => createTerminalRef(index, el as GeneralTerminalType)" v-else
+                :initCommand="item.initCommand"
+                socketURI="ws://localhost:19312"></GeneralTerminal> -->
+            </v-tabs-window-item>
+          </v-tabs-window>
+        </v-sheet>
+        <v-sheet class="running-app-right-side-bar">
+          <app-env-and-access
+            ref="appEnvAndAccessComponent"
+            @appEnvSavedAndUpdated="onAppEnvSavedAndUpdated"
+            :lmAppData="lmAppData" v-if="installedInstance && lmAppData && envAndAccessAllowRender"
+            :installedInstance="installedInstance"></app-env-and-access>
+        </v-sheet>
     </v-main>
   </v-layout>
 </template>
@@ -166,15 +169,8 @@ const getDefaultAction = (): string => {
 }
 
 const initTerminals = () => {
-  // const action = getDefaultAction()
-  const mainProcessTerminal: TerminalTabItem = {
-    icon: 'mdi-application-brackets-outline',
-    text: t('AppRunningWindow.MainProcessTab'),
-    tabName: 'main-process',
-    closable: false,
-    // commandExecuteEndKeywords: [`lmd ${action} script end.`]
-  }
-  runningInstanceStore.initTerminal(mainProcessTerminal)
+  const tabDisplayText = t('AppRunningWindow.MainProcessTab')
+  runningInstanceStore.initTerminal(tabDisplayText)
 }
 
 const restartApp = () => {
@@ -304,8 +300,17 @@ const onMainTerminalCommandEnd = () => {
   }
 }
 
-const onCommandExecuteEnd = () => {
-  appEnvAndAccessComponent.value?.updateAppEnvData()
+const onCommandExecuteEnd = (toastMsg) => {
+  console.log('onCommandExecuteEnd', toastMsg)
+  if(toast && toastMsg) {
+    toast(toastMsg, 'success')
+  }
+  console.log('delay1秒再取数据')
+  setTimeout(() => {
+    console.log('开始取数据')
+    appEnvAndAccessComponent.value?.updateAppEnvData()
+  }, 1000)
+
 }
 
 </script>
@@ -313,4 +318,16 @@ const onCommandExecuteEnd = () => {
 .running-window-main .v-tabs-window{
   height: 100%;
 }
+
+.running-app-bar .v-btn--stacked {
+  font-size: 1rem;
+}
+
+.running-app-right-side-bar {
+  width: 342px;
+  /* px-8 */
+  padding: 22px 30px;
+  border-left: 1px solid #DFDFEC;
+}
+
 </style>
