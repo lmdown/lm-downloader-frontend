@@ -10,7 +10,7 @@
       <v-card-subtitle class="" style="font-size: 1rem; color: #111; opacity: 1;">
         {{ lmAppData.shortDesc }}
       </v-card-subtitle>
-      <SimpleInstallBtn></SimpleInstallBtn>
+      <SimpleInstallBtn :lm-app-data="lmAppData"></SimpleInstallBtn>
     </div>
   </v-row>
   <v-row>

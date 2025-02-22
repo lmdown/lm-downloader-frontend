@@ -24,7 +24,6 @@
           </template>
           {{ $t('AppRunningWindow.Reinstall') }}
         </v-btn> -->
-
         <v-btn v-if="isAppRunning" variant="flat" color="#F2313F" class="mx-2" width="80" height="40"
           @click="stopApp()">
           {{$t('AppRunningWindow.Stop')}}
@@ -59,7 +58,7 @@
             <v-tabs-window-item v-for="(item, index) in runningInstanceStore.terminals" style="flex: 1;"
               :key="item.text" :value="item.tabName" eager>
               <GeneralTerminal
-                @execute-end="onMainTerminalCommandEnd"
+                @execute-end="onMainTerminalCommandEnd(item.commandExecuteEndToastMsg)"
                 :command-execute-end-keywords="item.commandExecuteEndKeywords"
                 ref="generalTerminal" v-if="item.tabName === 'main-process'"
                 socketURI="ws://localhost:19312"></GeneralTerminal>
@@ -148,7 +147,7 @@ onMounted(async () => {
   runDefaultScript()
   const appName = lmAppData?.value.name
   document.title = appName
-  autoStartMainProcess()
+  // autoStartMainProcess()
 })
 
 const getDefaultAction = (): string => {
@@ -174,7 +173,12 @@ const restartApp = () => {
 
 const changeMainTerminalScriptType = (scriptType: string) => {
   currentAction.value = scriptType
-  runningInstanceStore.changeMainTerminalScriptType(scriptType)
+  let msg = ''
+  if(scriptType === AppScriptType.INSTALL) {
+    msg = t('AppRunningWindow.InstallSuccess')
+  }
+  console.log('changeMainTerminalScriptType', scriptType, msg)
+  runningInstanceStore.changeMainTerminalScriptType(scriptType, msg)
 }
 
 const startApp = async () => {
@@ -251,10 +255,12 @@ const clearStartTimeStr = () => {
 
 const runDefaultScript = () => {
   const script = route.query.script
+  console.log('runDefaultScript', script)
   if (script === AppScriptType.INSTALL) {
     installApp()
+    showEnvAndAccessRows()
   } else if (script === AppScriptType.START) {
-    startApp()
+    autoStartMainProcess()
   }
 }
 
@@ -269,8 +275,8 @@ const onAppEnvSavedAndUpdated = (appEnv: object) => {
 }
 
 const autoStartMainProcess = async () => {
+  startApp()
   if(AppInfoUtil.needPreStartApp(installedInstance.value?.installName)) {
-    startApp()
     if(OSUtil.isMacOS()) {
       setTimeout(()=>{
         showEnvAndAccessRows()
@@ -279,24 +285,24 @@ const autoStartMainProcess = async () => {
     }
     return
   }
-
-  showEnvAndAccessRows()
 }
 
 const showEnvAndAccessRows = () => {
   envAndAccessAllowRender.value = true
 }
-const onMainTerminalCommandEnd = () => {
+const onMainTerminalCommandEnd = (toastMsg: string | undefined) => {
   showEnvAndAccessRows()
-  if (getDefaultAction() === AppScriptType.INSTALL) {
-    if(toast) {
-      const msg = t('AppRunningWindow.InstallSuccess')
-      toast(msg, 'success')
-    }
-  }
+  console.log('onMainTerminalCommandEnd')
+  onCommandExecuteEnd(toastMsg)
+  // if (getDefaultAction() === AppScriptType.INSTALL) {
+  //   if(toast) {
+  //     const msg = t('AppRunningWindow.InstallSuccess')
+  //     toast(msg, 'success')
+  //   }
+  // }
 }
 
-const onCommandExecuteEnd = (toastMsg) => {
+const onCommandExecuteEnd = (toastMsg: string | undefined) => {
   console.log('onCommandExecuteEnd', toastMsg)
   if(toast && toastMsg) {
     toast(toastMsg, 'success')

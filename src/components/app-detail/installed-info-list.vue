@@ -19,8 +19,8 @@
       <div style="font-size: 14px; color: #7D7D7D;" class="text-center">
         {{$t('LMAppDetail.notInstalled')}}
       </div>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" variant="flat" @click="installApp">{{$t('LMAppDetail.install')}}</v-btn>
+      <!-- <v-spacer></v-spacer> -->
+      <!-- <v-btn color="primary" variant="flat" @click="installApp">{{$t('LMAppDetail.install')}}</v-btn> -->
   </v-sheet>
 </template>
 
@@ -46,9 +46,11 @@ onMounted(async () => {
 
 const updateInstallList = async () => {
   await installedInstanceStore.getInstalledInstanceForApp(props.lmAppData?.id)
-  installedInstanceList.value = installedInstanceStore.instancesForApp
-  // installedInstanceList.value = []
 }
+
+watch(() => installedInstanceStore.instancesForApp, async (newVal: InstalledInstanceDTO[]) => {
+  installedInstanceList.value = newVal
+})
 
 const installApp = async () => {
   // 1. Create Install Instance.
@@ -65,7 +67,6 @@ const installApp = async () => {
         console.error('data err firstInstallInstance', firstInstallInstance)
       }
     }
-    //
   } catch(err)  {
     console.error('install app err ', err)
   }

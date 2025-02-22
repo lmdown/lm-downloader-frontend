@@ -29,14 +29,37 @@
 import { AppScriptType } from '@/constant/AppScriptType';
 import { useInstalledInstanceStore } from '@/store';
 import AppRunningUtil from '@/util/AppRunningUtil';
+import { createInstallInstance } from '@/api/install-instance';
+import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
+import { AIAppDTO } from '@/types/AIAppDTO';
 
 const installedInstanceStore = useInstalledInstanceStore()
 
-const startInstallApp = () => {
-  const instances = installedInstanceStore.instancesForApp
-  if(instances && instances.length> 0 ) {
-    AppRunningUtil.openAppRunningWindow(instances[0].id, AppScriptType.START)
-  }
+const props = defineProps<{
+  lmAppData: AIAppDTO
+}>()
+
+const startInstallApp = async () => {
+  console.log('startInstallApp', props.lmAppData)
+  await createInstallInstance(props.lmAppData)
+  updateInstallList()
+}
+
+const updateInstallList = async () => {
+  await installedInstanceStore.getInstalledInstanceForApp(props.lmAppData?.id)
+  openRunningWindow()
+}
+
+const openRunningWindow = () => {
+  if(installedInstanceStore.instancesForApp) {
+      const firstInstallInstance: InstalledInstanceDTO = installedInstanceStore.instancesForApp[0]
+      if (firstInstallInstance) {
+        const instanceId = firstInstallInstance.id
+        AppRunningUtil.openAppRunningWindow(instanceId, AppScriptType.INSTALL)
+      } else {
+        console.error('data err firstInstallInstance', firstInstallInstance)
+      }
+    }
 }
 
 const reinstallApp = () => {

@@ -33,10 +33,11 @@ export const useRunningInstanceStore = defineStore('runningInstance', {
     onAppSettingsSaved() {
       this.appSettingsSaved = true
     },
-    changeMainTerminalScriptType(scriptType: string) {
+    changeMainTerminalScriptType(scriptType: string, msg: string) {
       try {
         const terminal = this.terminals[0]
         terminal.commandExecuteEndKeywords = [`lmd ${scriptType} script end.`]
+        terminal.commandExecuteEndToastMsg = msg
       } catch (err) {
         console.error(err)
       }
