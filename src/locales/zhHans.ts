@@ -161,6 +161,11 @@ export default {
     ModelDeleteSuccessful: '模型删除成功。',
     ModelDownloadSuccessful: '模型下载成功。',
 
+    Cancel: '取消',
+    ConfirmDelete:'确认删除',
+    ConfirmDeleteMsg:'确定要删除此项吗?',
+
+
     StorageModelsSize: '模型占用',
     StorageDiskOther: '其他',
     StorageDiskFreeSpace: '空闲',

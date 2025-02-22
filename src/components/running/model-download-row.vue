@@ -2,7 +2,17 @@
   <FloatingTitleCard
     v-if="lmAppData && modelDownloadRowVisible"
     :title="$t('AppRunningWindow.ModelDownload')">
-    <v-sheet class="mx-5 model-download-sheet">
+    <template v-slot:append>
+      <div class="justify-center mr-6 mt-2">
+        <a href="#" @click.prevent="showDeleteModelDialog" class="del-btn"
+          v-if="deleteBtnVisible" style="color: #F2313F;">
+          {{ $t('AppRunningWindow.ModelDeleteBtnLabel') }}
+        </a>
+        <!-- <app-settings-btn
+           :installedInstance="installedInstance"></app-settings-btn> -->
+      </div>
+    </template>
+    <v-sheet class="mx-5 model-download-sheet mb-6">
       <!-- :label="$t('AppRunningWindow.ModelName')" -->
       <v-card-subtitle class="px-0 mt-3 mb-1" style="color: #4F4F67;">
         {{ $t('AppRunningWindow.ModelName') }}
@@ -55,25 +65,22 @@
         </v-list-item>
       </template>
     </v-select>
-    <v-card-actions  class="text-center justify-center py-6" >
-
+    <v-card-actions
+      v-if="downloadBtnVisible"
+      class="text-center justify-center pt-6" >
       <v-btn @click="startDownloadModel"
         variant="flat" min-width="8rem"
-        color="primary"
-        v-if="downloadBtnVisible"
-        >
+        color="primary">
         {{ $t('AppRunningWindow.ModelDownloadBtnLabel') }}
       </v-btn>
-
-      <v-btn @click="deleteModel" class="del-btn"
-         min-width="8rem"
-        v-if="deleteBtnVisible">
-        {{ $t('AppRunningWindow.ModelDeleteBtnLabel') }}
-      </v-btn>
     </v-card-actions>
-
     </v-sheet>
   </FloatingTitleCard>
+
+  <DeleteConfirmDialog
+    :model-value="deleteConfirmDialogVisible"
+    @update:modelValue="value => deleteConfirmDialogVisible = value"
+    :item-name="deleteItemName" @confirm="deleteModel"></DeleteConfirmDialog>
 </template>
 <style>
 .installed-chip {
@@ -109,7 +116,6 @@
 }
 </style>
 <script lang="ts" setup>
-import { openPath } from '@/client-api/config-file';
 import { useRunningInstanceStore } from '@/store/running-instance';
 import { AIAppDTO } from '@/types/AIAppDTO';
 import { DownloadableModel } from '@/types/app-running/DownloadableModel';
@@ -119,6 +125,7 @@ import AppInfoUtil from '@/util/app-settings/AppInfoUtil';
 import OllamaSettingUtil from '@/util/app-settings/OllamaSettingUtil';
 import { useLocale } from 'vuetify';
 import FloatingTitleCard from '../common/floating-title-card.vue';
+import DeleteConfirmDialog from '../common/delete-confirm-dialog.vue';
 
 const runningInstanceStore = useRunningInstanceStore()
 
@@ -129,9 +136,11 @@ const modelDownloadRowVisible = ref(false)
 const currentModel = ref<string | null>(null)
 const currentParameterSize = ref<string | null>(null)
 
-const allModelFileSize = ref<string | null>(null)
+// const allModelFileSize = ref<string | null>(null)
 const downloadBtnVisible = ref(false)
 const deleteBtnVisible = ref(false)
+const deleteConfirmDialogVisible = ref(false)
+const deleteItemName = ref('')
 
 const {t} = useLocale()
 
@@ -141,11 +150,11 @@ const props = defineProps<{
   appEnv: object | null
 }>()
 
-const openModelsDir = async () => {
-  const dir = await AppInfoUtil.getModelsDir(
-    props.installedInstance?.installName, props.appEnv)
-  openPath(dir)
-}
+// const openModelsDir = async () => {
+//   const dir = await AppInfoUtil.getModelsDir(
+//     props.installedInstance?.installName, props.appEnv)
+//   openPath(dir)
+// }
 
 onMounted(async () => {
   updateVisibility()
@@ -231,6 +240,12 @@ const getAllModelsForApp = async () => {
       }
     }
   }
+}
+
+const showDeleteModelDialog = () => {
+  const installNameAndSize = `${currentModel.value}:${currentParameterSize.value}`
+  deleteConfirmDialogVisible.value = true
+  deleteItemName.value = installNameAndSize
 }
 
 const deleteModel = async () => {

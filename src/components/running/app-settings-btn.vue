@@ -91,7 +91,7 @@ import OllamaSettingUtil from '@/util/app-settings/OllamaSettingUtil';
 import { useLocale } from 'vuetify';
 import { useRunningInstanceStore } from '@/store/running-instance'
 import OSUtil from '@/util/OSUtil';
-import { exitLMDApp } from '@/client-api/lmd-system';
+import { exitLMDApp, restartLMDApp } from '@/client-api/lmd-system';
 import DirCheckUtil from '@/util/DirCheckUtil';
 
 const { t } = useLocale()
@@ -171,11 +171,13 @@ const onSubmit = async () => {
     runningInstanceStore.resetAppSettingsSavedStatus()
   }, 100)
   hideDialog()
+  AppInfoUtil.killAppProcessed(props.installedInstance?.installName)
   if(OSUtil.isWindows()) {
-    AppInfoUtil.killAppProcessed(props.installedInstance?.installName)
     setTimeout(() => {
       exitLMDApp()
     }, 1500)
+  } else {
+    restartLMDApp()
   }
 }
 

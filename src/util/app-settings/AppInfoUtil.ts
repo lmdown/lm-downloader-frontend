@@ -106,7 +106,12 @@ ollama rm ${installNameAndSize}`
 
   static killAppProcessed(appInstallName: string | null | undefined) {
     if(this.appIsOllama(appInstallName)) {
-      const names = ['ollama.exe', 'ollama app.exe']
+      const names = [
+        // windows
+        'ollama.exe', 'ollama app.exe',
+        // mac
+        'ollama', 'Ollama'
+      ]
       killProcesses(names)
     }
   }

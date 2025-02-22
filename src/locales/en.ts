@@ -165,6 +165,10 @@ export default {
     StorageDiskOther: 'Other',
     StorageDiskFreeSpace: 'Free',
 
+    Cancel: 'Cancel',
+    ConfirmDelete:'Confirm Deletion',
+    ConfirmDeleteMsg:'Are you sure you want to delete it?',
+
     InstallSuccess: 'Installation successful.',
     ModelDeleteSuccessful: 'Model Delete Successful.',
     ModelDownloadSuccessful: 'Model Download Successful.',
