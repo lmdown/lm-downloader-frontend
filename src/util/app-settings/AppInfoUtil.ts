@@ -1,8 +1,9 @@
-import { getDirFileSize, getInstalledModelList } from "@/api/common-util"
+import { getDirAndDiskInfo, getDirFileSize, getInstalledModelList } from "@/api/common-util"
 import { OLLAMA_MODELS_KEY } from "@/app-config/apps/ollama"
 import { killProcesses } from "@/client-api/lmd-system"
 import { DownloadableModel } from "@/types/app-running/DownloadableModel"
 import InstalledModel from "@/types/app-running/InstalledModel"
+import LocalDirectoryInfo from "@/types/app-running/LocalDirectoryInfo"
 import prettyBytes from "pretty-bytes"
 
 export default class AppInfoUtil {
@@ -18,15 +19,15 @@ export default class AppInfoUtil {
   static async getModelFileSize(
     installName: string | undefined | null,
     dirPath: string | null
-  ): Promise<string> {
+  ): Promise<LocalDirectoryInfo> {
     console.log('getModelFileSize', installName, dirPath)
     if (this.appIsOllama(installName) && dirPath) {
       if(dirPath) {
-        const fileSize = await getDirFileSize(dirPath)
-        return prettyBytes(fileSize)
+        const dirInfo: LocalDirectoryInfo = await getDirAndDiskInfo(dirPath)
+        return dirInfo
       }
     }
-    return ''
+    return {} as LocalDirectoryInfo
   }
 
   static async getModelsDir(

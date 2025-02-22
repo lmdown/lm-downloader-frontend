@@ -1,8 +1,12 @@
 <template>
-  <v-btn width="80" height="40px" variant="flat" color="#CCC"
+  <a href="#" class="settings-link-btn"
+    @click.prevent="showDialog">
+    {{ $t('AppRunningWindow.Settings') }}
+  </a>
+  <!-- <v-btn width="80" height="40px" variant="flat" color="#CCC"
     v-if="settingsBtnVisible" @click="showDialog">
     {{ $t('AppRunningWindow.Settings') }}
-  </v-btn>
+  </v-btn> -->
 
   <v-dialog v-model="dialogVisible" min-width="400" max-width="800">
     <v-card

@@ -11,6 +11,12 @@
   </v-sheet> -->
   <FloatingTitleCard v-if="lmAppData && accessRowVisible"
     :title="$t('AppRunningWindow.Access')">
+    <template v-slot:append>
+      <div class="justify-center mr-6 mt-2">
+        <app-settings-btn
+           :installedInstance="installedInstance"></app-settings-btn>
+      </div>
+    </template>
     <template v-if="accessUrls && accessUrls.length > 0">
       <v-list class="pt-1 pb-2">
         <v-list-item v-for="(url, index) in accessUrls" :key="index" density="compact" min-height="1.1rem" class="px-5">
@@ -34,6 +40,7 @@ import { InstalledInstanceDTO } from '@/types/InstalledInstanceDTO';
 import AppInfoUtil from '@/util/app-settings/AppInfoUtil';
 import OllamaSettingUtil from '@/util/app-settings/OllamaSettingUtil';
 import FloatingTitleCard from '../common/floating-title-card.vue';
+import AppSettingsBtn from '@/components/running/app-settings-btn.vue'
 
 const props = defineProps<{
   lmAppData: AIAppDTO | null

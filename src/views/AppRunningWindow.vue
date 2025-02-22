@@ -34,7 +34,7 @@
           {{$t('AppRunningWindow.Start')}}
         </v-btn>
         <!-- app settings -->
-        <app-settings-btn :installedInstance="installedInstance"></app-settings-btn>
+        <!-- <app-settings-btn :installedInstance="installedInstance"></app-settings-btn> -->
 
       </template>
     </v-app-bar>
@@ -334,4 +334,8 @@ const onCommandExecuteEnd = (toastMsg: string | undefined) => {
   height: calc(100vh - var(--v-layout-top));
 }
 
+a.settings-link-btn {
+  color: #1E1D1D;
+  font-size: 0.9rem;
+}
 </style>

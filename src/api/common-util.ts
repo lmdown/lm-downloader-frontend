@@ -1,5 +1,6 @@
 import InstalledModel from '@/types/app-running/InstalledModel';
 import api from './axios'
+import LocalDirectoryInfo from '@/types/app-running/LocalDirectoryInfo';
 
 export const pathJoin = async (paths: string[]) => {
   let result
@@ -78,6 +79,19 @@ export const getDirFileSize = async (dirPath: string) => {
       `/self-manage/common-util/dir-file-size?dirPath=${dirPath}`,
     );
     result = response.data?.fileSize
+  } catch(err) {
+    console.log('err', err)
+  }
+  return result
+}
+
+export const getDirAndDiskInfo = async (dirPath: string):Promise<LocalDirectoryInfo> => {
+  let result = {} as LocalDirectoryInfo
+  try {
+    const response = await api.get(
+      `/self-manage/common-util/dir-and-disk-info?dirPath=${dirPath}`,
+    );
+    result = response.data
   } catch(err) {
     console.log('err', err)
   }

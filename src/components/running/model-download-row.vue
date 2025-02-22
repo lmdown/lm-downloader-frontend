@@ -31,10 +31,10 @@
             {{ item.raw.fileSize }}
           </v-chip>
           <v-chip density="default" v-if="item.raw.installed" class="installed-chip">
-            <span>{{ $t('AppRunningWindow.ModelDownloaded') }}</span>
+            <span>{{ $t('AppRunningWindow.ModelDownloadedShort') }}</span>
           </v-chip>
           <v-chip density="default" v-else class="not-installed-chip">
-            <span>{{ $t('AppRunningWindow.ModelNotDownloaded') }}</span>
+            <span>{{ $t('AppRunningWindow.ModelNotDownloadedShort') }}</span>
           </v-chip>
         </template>
 
