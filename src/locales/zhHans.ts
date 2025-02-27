@@ -8,6 +8,7 @@ export default {
   },
   AppMenu: {
     Home: '首页',
+    UniversalApps: '在线AI工具',
     MyLMs: '我的大模型',
     PopularLMs: '模型推荐',
     MyResources: '资源总览',
@@ -23,6 +24,10 @@ export default {
   },
   StoryPost: {
     RelatedApps: '相关App推荐',
+  },
+  UniversalApps: {
+    MainTitle: '在线AI应用',
+    SubTitle: '无需安装即可使用的AI工具',
   },
   MyLMS: {
     MainTitle: '我的大模型',

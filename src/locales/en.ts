@@ -9,6 +9,7 @@ export default {
   AppMenu: {
     Home: 'Home',
     MyLMs: 'My Models',
+    UniversalApps: 'Online AI Apps',
     PopularLMs: 'Popular Models',
     MyResources: 'System Stat',
     FastDownloadHome: 'Fast Download Apps',
@@ -23,6 +24,10 @@ export default {
   },
   StoryPost: {
     RelatedApps: 'Related Apps',
+  },
+  UniversalApps: {
+    MainTitle: 'Online AI Apps',
+    SubTitle: 'Use AI Apps without installation',
   },
   MyLMS: {
     MainTitle: 'My Large Models',

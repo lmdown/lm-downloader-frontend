@@ -3,6 +3,16 @@ import { AppPageName, AppPagePath } from '@/router/AppPagePath'
 export const LMD_MAIN_MENU: LMDMainMenuItem[] = [
   // 极速下载首页
   {
+    name: 'AppMenu.UniversalApps',
+    // subtitle: '',
+    icon: './images/nav/fast-download.png',
+    iconActive: './images/nav/fast-download-active.png',
+    path: AppPagePath.UniversalAppHome,
+    routerName: AppPageName.UniversalAppHome,
+  },
+
+  // 极速下载首页
+  {
     name: 'AppMenu.FastDownloadHome',
     subtitle: 'AppMenu.MyComputerResourcesSubtitle',
     icon: './images/nav/fast-download.png',
@@ -22,6 +32,7 @@ export const LMD_MAIN_MENU: LMDMainMenuItem[] = [
   },
 
   // 我的电脑配置
+  /*
   {
     name: 'AppMenu.MyComputerResources',
     subtitle: 'AppMenu.MyComputerResourcesSubtitle',
@@ -30,11 +41,12 @@ export const LMD_MAIN_MENU: LMDMainMenuItem[] = [
     path: AppPagePath.MyResource,
     routerName: AppPageName.MyResource,
   },
+  */
 ]
 
 export interface LMDMainMenuItem {
   name: string
-  subtitle: string
+  subtitle?: string
   icon: string
   iconActive: string
   path: string

@@ -1,6 +1,9 @@
 export const AppPagePath = {
   Home: '/',
-  AppDetail: "/app/",
+  UniversalAppHome: '/universal-app-home',
+  UniversalAppList: '/universal-apps:/catid',
+  UniversalAppDetail: '/universal-app/:appid',
+  AppDetail: "/app",
   InstalledApps: "/installed",
   AppRunning: "/app/running/:id",
   StoryPostDetail: "/app/story-post/:id",
@@ -9,6 +12,9 @@ export const AppPagePath = {
 
 export const AppPageName = {
   Home: 'home',
+  UniversalAppHome: 'universal-app-home',
+  UniversalAppList: 'universal-apps',
+  UniversalAppDetail: 'universal-app-detail',
   AppDetail: "app-detail",
   InstalledApps: "installed-apps",
   AppRunning: "app-running",

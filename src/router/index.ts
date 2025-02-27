@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/app/:id",
-    name: 'app-detail',
+    name: AppPageName.AppDetail,
     // component: AppDetail,
     component: () => import('@/views/AppDetail.vue'),
     meta: { requiresSidebar: true }
@@ -41,13 +41,28 @@ const routes: Array<RouteRecordRaw> = [
     path: AppPagePath.AppRunning,
     name: AppPageName.AppRunning,
     component: () => import('@/views/AppRunningWindow.vue'),
-    meta: { requiresSidebar: false } // 特定页面不显示左侧菜单
+    meta: { requiresSidebar: false } // sidebar dose not display.
   },
-  // {
-  //   path: "/about",
-  //   name: 'about',
-  //   component: About,
-  // },
+  {
+    path: AppPagePath.UniversalAppHome,
+    name: AppPageName.UniversalAppHome,
+    component: () => import('@/views/UniversalAppHome.vue'),
+    // In the client app, sidebar should display.
+    meta: { requiresSidebar: true }
+  },
+  {
+    path: AppPagePath.UniversalAppList,
+    name: AppPageName.UniversalAppList,
+    component: () => import('@/views/UniversalAppList.vue'),
+    meta: { requiresSidebar: true }
+  },
+  {
+    path: AppPagePath.UniversalAppDetail,
+    name: AppPageName.UniversalAppDetail,
+    component: () => import('@/views/UniversalAppDetail.vue'),
+    meta: { requiresSidebar: true }
+  },
+
 ];
 
 // 路由器
