@@ -12,7 +12,7 @@
   <FloatingTitleCard v-if="lmAppData && accessRowVisible"
     :title="$t('AppRunningWindow.Access')">
     <template v-slot:append>
-      <div class="justify-center mr-6 mt-2">
+      <div class="justify-center mr-6 mt-2" v-if="settingBtnVisible">
         <app-settings-btn
            :installedInstance="installedInstance"></app-settings-btn>
       </div>
@@ -52,6 +52,7 @@ const props = defineProps<{
 const accessUrls = ref<string[]>([])
 
 const accessRowVisible = ref(false)
+const settingBtnVisible = ref(false)
 
 const checkVisibility = async (): Promise<boolean> => {
   if(props.lmAppData?.accessInfo ) {
@@ -79,6 +80,8 @@ const checkVisibility = async (): Promise<boolean> => {
 
 onMounted(async () => {
   accessRowVisible.value = await checkVisibility()
+
+  settingBtnVisible.value = AppInfoUtil.displayAccessSettingBtn(props.installedInstance?.installName)
 })
 
 watch( () => props.appEnv, async () => {

@@ -16,6 +16,10 @@ export default class AppInfoUtil {
     return installName === 'sillytavern'
   }
 
+  static displayAccessSettingBtn(installName: string | undefined | null) {
+    return this.appIsOllama(installName)
+  }
+
   static async getModelFileSize(
     installName: string | undefined | null,
     dirPath: string | null
