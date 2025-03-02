@@ -4,7 +4,8 @@ import { useUserStore } from "../store/user"
 import { addQueryParamsToPath } from "@/util/QueryParam";
 import LocaleUtil from "@/util/LocaleUtil";
 
-const defaultBaseURL = 'http://localhost:19312/api'
+const defaultBaseURL = 'https://d-1314735556.cos.ap-shanghai.myqcloud.com/up/'
+// const defaultBaseURL = './data/universal-app/main-menu.json'
 
 const api: AxiosInstance = axios.create({
   baseURL: defaultBaseURL,

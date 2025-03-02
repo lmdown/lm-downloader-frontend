@@ -1,23 +1,24 @@
 <template>
   <div class="cat-nav-container ga-2">
     <div style="width: auto;" class="d-flex flex-row ga-2">
-      <template :key="index+cat.name" v-for="(cat, index) in navCatsLargeList">
+      <template :key="index+getLocaleName(cat)" v-for="(cat, index) in navCatsLargeList">
         <div :class="['nav-item', 'nav-item-large', getSelectedClass(index)]"
           @click="toggle(index)">
-          {{ cat.id }}
-          -
-          {{ cat.name }}
+          <span :class="['iconfont', getIconClass(cat.alias)]"></span>
+          <div class="cat-name">
+          {{ getLocaleName(cat) }}
+          </div>
         </div>
       </template>
     </div>
 
-    <div class="d-flex flex-1 flex-wrap ga-2" style="overflow: hidden; height: 7rem;">
-      <template :key="index+cat.name" v-for="(cat, index) in navCatsSmallList">
+    <!-- <span class="iconfont icon-a-bianzu15beifen17" style="font-size: 20px; color: #FF0000"></span> -->
+    <div class="d-flex flex-1 flex-wrap ga-2" style="overflow: hidden; height: 88px;">
+      <template :key="index+getLocaleName(cat)" v-for="(cat, index) in navCatsSmallList">
         <div :class="['nav-item', 'nav-item-small', getSelectedClass(largeNavItemCounts + index)]"
           @click="toggle(largeNavItemCounts + index)">
-          {{ cat.id }}
-          -
-          {{ cat.name }}
+          <span :class="['iconfont', getIconClass(cat.alias)]"></span>
+          {{ getLocaleName(cat) }}
         </div>
       </template>
     </div>
@@ -26,6 +27,7 @@
 </template>
 <script lang="ts" setup>
 import { UniversalAICategoryDTO } from '@/types/universal-app/UniversalAICategoryDTO';
+import CatUtil from '@/util/universal-app/CatUtil';
 
 // const selectedIndex = ref(0)
 
@@ -62,7 +64,7 @@ const navCatsLargeList = computed(() => {
 
 const navCatsSmallList = computed(() => {
   const clonedNavCatsData = JSON.parse(JSON.stringify(props.navCatsData))
-  const result = navCatsSmallList.value = clonedNavCatsData.splice(largeNavItemCounts.value)
+  const result = clonedNavCatsData.splice(largeNavItemCounts.value)
   return result
 })
 
@@ -72,6 +74,9 @@ const updateNavData = () => {
   // console.log('clonedNavCatsData', clonedNavCatsData)
   // navCatsLargeList.value = clonedNavCatsData.splice(0, largeNavItemCounts.value)
   // navCatsSmallList.value = clonedNavCatsData
+}
+const getLocaleName = (cat:UniversalAICategoryDTO) => {
+  return CatUtil.getLocaleName(cat)
 }
 
 const getSelectedClass = (currentIndex: number) => {
@@ -88,6 +93,11 @@ const toggle = (index) => {
   console.log('toggle', index)
 }
 
+const getIconClass = (alias: string) => {
+  // icon-bianzu15beifen17
+    return `icon-${alias}`
+}
+
 </script>
 <style>
 .cat-nav-container {
@@ -100,13 +110,31 @@ const toggle = (index) => {
 }
 
 .cat-nav-container .nav-item {
+  justify-content: center;
+  align-items: center;
   border-radius: 0.5rem;
   cursor: pointer;
   border: 1px solid rgb(var(--v-theme-surface-light));
+  line-height: 150%;
+  color: rgba(43, 50, 61, 0.75);
+  gap: 4px;
+  background-color:#F3F3FA;
+}
+
+.cat-nav-container .nav-item-large .iconfont {
+  font-size: 40px;
+}
+.cat-nav-container .nav-item-small .iconfont {
+  font-size: 2rem;
 }
 
 .cat-nav-container .nav-item:hover {
-  border: 1px solid rgb(var(--v-theme-primary));
+  /* border: 1px solid rgb(var(--v-theme-primary)); */
+  border: 1px solid rgba(250, 100, 0, .50);
+  transition: all;
+  transition-duration: .2s;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.09);
+  background-color: #FFF;
 }
 
 .cat-nav-container .nav-item.active {
@@ -115,21 +143,30 @@ const toggle = (index) => {
 }
 
 .cat-nav-container .nav-item-large {
-  background-color: rgb(var(--v-theme-surface-light));
   vertical-align: middle;
   text-align: center;
-  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  /* font-size: 1.2rem; */
+  font-size: 14px;
   font-weight: bold;
-  height: 7rem;
-  width: 8rem;
+  width: 116px;
+  height: 88px;
+}
+
+.cat-nav-container .nav-item-large .cat-name {
+  line-height: 100%;
+  margin-top: 8px;
+
 }
 
 .cat-nav-container .nav-item-small {
-  background-color: rgb(var(--v-theme-surface-light));
+  display: flex;
   text-align: center;
   vertical-align: middle;
-  height: 2rem;
-  width: 8rem;
+  justify-content: center;
+  height: 40px;
+  width: 138px;
 }
 
 </style>

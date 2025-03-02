@@ -3,10 +3,14 @@
     elevation="0" class="window-drag">
     <template v-slot:prepend>
       <div class="lmd-logo-and-app-title">
-        <v-img width="48" height="48" class="ml-7 mr-4" src="./images/icons/lmd-logo.png"></v-img>
+        <v-img width="48" height="48" class="ml-7 mr-4" src="./images/icons/lmd-logo.png">
+          <v-tooltip activator="parent" location="bottom">
+            {{ $t('App.title') }}
+          </v-tooltip>
+        </v-img>
         <VDivider vertical style="opacity: 1;" color="#EBEBF7"></VDivider>
         <VCard elevation="0" class="ml-0">
-          <VCardTitle class="lmd-app-title">{{ mainTitle || $t('App.title') }}</VCardTitle>
+          <VCardTitle class="lmd-app-title">{{ mainTitle || $t('App.TitleFastDownload') }}</VCardTitle>
           <VCardSubtitle class="lmd-app-subtitle">{{ subTitle || $t('App.subtitle') }}</VCardSubtitle>
         </VCard>
       </div>
@@ -34,17 +38,19 @@ defineProps<{
   align-content: center;
 }
 .lmd-app-title {
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
+  font-size: 22px;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.75);
-  padding-top: 0;
+  padding-top: 4px;
   padding-bottom: 0;
 }
 
 .lmd-app-subtitle {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 105%;
   color: #424254;
   opacity: 1;
+  padding-top: 2px;
 }
 </style>

@@ -50,18 +50,18 @@ const routes: Array<RouteRecordRaw> = [
     // In the client app, sidebar should display.
     meta: { requiresSidebar: true }
   },
-  {
-    path: AppPagePath.UniversalAppList,
-    name: AppPageName.UniversalAppList,
-    component: () => import('@/views/UniversalAppList.vue'),
-    meta: { requiresSidebar: true }
-  },
-  {
-    path: AppPagePath.UniversalAppDetail,
-    name: AppPageName.UniversalAppDetail,
-    component: () => import('@/views/UniversalAppDetail.vue'),
-    meta: { requiresSidebar: true }
-  },
+  // {
+  //   path: AppPagePath.UniversalAppList,
+  //   name: AppPageName.UniversalAppList,
+  //   component: () => import('@/views/UniversalAppList.vue'),
+  //   meta: { requiresSidebar: true }
+  // },
+  // {
+  //   path: AppPagePath.UniversalAppDetail,
+  //   name: AppPageName.UniversalAppDetail,
+  //   component: () => import('@/views/UniversalAppDetail.vue'),
+  //   meta: { requiresSidebar: true }
+  // },
 
 ];
 

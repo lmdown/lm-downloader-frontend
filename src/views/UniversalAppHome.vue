@@ -10,6 +10,7 @@
   </v-container>
 </template>
 <script lang="ts" setup>
+import { getUAppMainMenu } from '@/api/universal-app';
 import TopAppBar from '@/components/home/top-app-bar.vue';
 import AllCatetoriesNav from '@/components/universal-app/all-catetories-nav.vue';
 import AppListForHome from '@/components/universal-app/app-list-for-home.vue';
@@ -17,7 +18,8 @@ import { UniversalAICategoryDTO } from '@/types/universal-app/UniversalAICategor
 const selectedIndex = ref(0)
 const navCatsData = ref<UniversalAICategoryDTO[]>([])
 
-onMounted(() => {
+onMounted( async () => {
+  navCatsData.value = await getUAppMainMenu()
 })
 
 </script>

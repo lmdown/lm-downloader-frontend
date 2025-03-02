@@ -1,6 +1,7 @@
 export default {
   App: {
     title: 'LM Downloader',
+    TitleFastDownload: 'Fast Download Apps',
     subtitle: 'One-click download, ready to start',
     about: 'About LM Downloader',
     help: 'Help Center',
@@ -28,6 +29,9 @@ export default {
   UniversalApps: {
     MainTitle: 'Online AI Apps',
     SubTitle: 'Use AI Apps without installation',
+    MoreApps: 'More Apps',
+    Downloadable: 'Downloadable',
+
   },
   MyLMS: {
     MainTitle: 'My Large Models',

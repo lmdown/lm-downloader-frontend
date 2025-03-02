@@ -1,7 +1,8 @@
 <template>
   <div class="all-cats-list-container my-4">
-    <template :key="navItem.name" v-for="(navItem, index) in navCatsData">
-      <AppListOfCat :catetory="navItem"></AppListOfCat>
+    <template :key="index" v-for="(navItem, index) in navCatsData">
+      <!-- main{{ index }}:{{ navItem.name_en }} -->
+      <AppListOfCat :is-app-list-homepage="true" :catetory="navItem"></AppListOfCat>
     </template>
   </div>
 </template>
@@ -9,6 +10,7 @@
 .all-cats-list-container {
   border-radius: 16px;
   border: 1px solid #EBEBF7;
+  padding: 24px;
 }
 </style>
 <script lang="ts" setup>

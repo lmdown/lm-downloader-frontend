@@ -2,6 +2,7 @@ export default {
   App: {
     title: '魔当 (LM Downloader)',
     subtitle: '大模型一键下载，随时启动',
+    TitleFastDownload: '极速下载',
     about: '关于魔当',
     help: '帮助中心',
     UnderConstruction: '帮助文档稍后提供',
@@ -28,6 +29,9 @@ export default {
   UniversalApps: {
     MainTitle: '在线AI应用',
     SubTitle: '无需安装即可使用的AI工具',
+    MoreApps: '查看更多',
+    Downloadable: '可下载',
+
   },
   MyLMS: {
     MainTitle: '我的大模型',
