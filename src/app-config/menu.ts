@@ -7,8 +7,8 @@ export const LMD_MAIN_MENU: LMDMainMenuItem[] = [
     // subtitle: '',
     icon: './images/nav/fast-download.png',
     iconActive: './images/nav/fast-download-active.png',
-    path: AppPagePath.UniversalAppHome,
-    routerName: AppPageName.UniversalAppHome,
+    path: AppPagePath.Home,
+    routerName: AppPageName.Home,
   },
 
   // 极速下载首页
@@ -17,8 +17,8 @@ export const LMD_MAIN_MENU: LMDMainMenuItem[] = [
     subtitle: 'AppMenu.MyComputerResourcesSubtitle',
     icon: './images/nav/fast-download.png',
     iconActive: './images/nav/fast-download-active.png',
-    path: AppPagePath.Home,
-    routerName: AppPageName.Home,
+    path: AppPagePath.FastDownload,
+    routerName: AppPageName.FastDownload,
   },
 
   // 已安装的AI

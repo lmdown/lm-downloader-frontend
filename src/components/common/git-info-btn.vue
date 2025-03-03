@@ -4,7 +4,7 @@
     style="align-items: center;">
     <v-img src="./images/icons/icon-github.png" :transition="false"
       width="36" height="36" class="github-icon mr-4"></v-img>
-    Github &gt;
+      {{$t('App.AppName')}} Github &gt;
   </a>
   <v-dialog v-model="dialogVisible" min-width="200" max-width="560">
     <v-card

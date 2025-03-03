@@ -41,8 +41,8 @@
 
       <v-col v-if="allApps.length > 17"
         cols="12" xs="12" sm="6" md="4" lg="3"  xl="2">
-        <div style="height: 72px; display: flex; align-items: center; justify-content: center;">
-          <a href="#" @click.prevent="showMoreApps()">
+        <div style="height: 72px; padding-left: 32px; display: flex; align-items: center; justify-content: start;">
+          <a style="color: rgb(var(--v-theme-primary));" href="#" @click.prevent="showMoreApps()">
           {{ $t('UniversalApps.MoreApps') }} &gt;
           </a>
         </div>

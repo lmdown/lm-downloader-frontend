@@ -70,6 +70,10 @@
 
 </style>
 <script lang="ts" setup>
+import { getAIAppInfoByInstallName } from '@/api/app-info';
+import router from '@/router';
+import { AppPageName } from '@/router/AppPagePath';
+import { AIAppDTO } from '@/types/AIAppDTO';
 import { UniversalAIAppDTO } from '@/types/universal-app/UniversalAIAppDTO';
 import UAppUtil from '@/util/universal-app/UAppUtil';
 
@@ -87,13 +91,26 @@ const downloadableVisible = computed(() => {
 })
 
 const onAppClick = () => {
-  const refLinks = props.appData.refLinks
-  if(refLinks) {
+  const {refLinks, url} = props.appData
+  let targetUrl
+  if(props.appData.alias) {
+    gotoDetailPage()
+  } else if(refLinks) {
     const refLinksArr = JSON.parse(refLinks)
-    const url = refLinksArr[0].homepage
-    console.log('appData --- url', url)
-    // simulateAnchorClick(url)
+    targetUrl = refLinksArr[0].homepage
+  } else if(url) {
+    targetUrl = url
   }
+  simulateAnchorClick(targetUrl)
+}
+
+const gotoDetailPage = async () => {
+  const aiAppDTO: AIAppDTO = await getAIAppInfoByInstallName(props.appData.alias)
+  const appId = aiAppDTO.id
+  router.push({
+    name: AppPageName.AppDetail,
+    params: { id: appId }
+  })
 }
 
 const simulateAnchorClick = (url) => {

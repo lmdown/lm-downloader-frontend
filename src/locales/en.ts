@@ -1,6 +1,7 @@
 export default {
   App: {
     title: 'LM Downloader',
+    AppName: 'LM Downloader',
     TitleFastDownload: 'Fast Download Apps',
     subtitle: 'One-click download, ready to start',
     about: 'About LM Downloader',

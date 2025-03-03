@@ -1,5 +1,6 @@
 export const AppPagePath = {
   Home: '/',
+  FastDownload: '/fast-download',
   UniversalAppHome: '/universal-app-home',
   UniversalAppList: '/universal-apps:/catid',
   UniversalAppDetail: '/universal-app/:appid',
@@ -12,6 +13,7 @@ export const AppPagePath = {
 
 export const AppPageName = {
   Home: 'home',
+  FastDownload: 'fast-download',
   UniversalAppHome: 'universal-app-home',
   UniversalAppList: 'universal-apps',
   UniversalAppDetail: 'universal-app-detail',

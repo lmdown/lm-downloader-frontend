@@ -1,5 +1,6 @@
 export default {
   App: {
+    AppName: '魔当',
     title: '魔当 (LM Downloader)',
     subtitle: '大模型一键下载，随时启动',
     TitleFastDownload: '极速下载',

@@ -8,4 +8,5 @@ export interface UniversalAIAppDTO {
   shortDesc?: string
   desc_zh?: string
   desc_en?: string
+  alias?: string
 }

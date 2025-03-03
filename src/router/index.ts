@@ -8,6 +8,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: AppPagePath.Home,
     name: AppPageName.Home,
+    component: () => import('@/views/UniversalAppHome.vue'),
+    // In the client app, sidebar should display.
+    meta: { requiresSidebar: true }
+  },
+  {
+    path: AppPagePath.FastDownload,
+    name: AppPageName.FastDownload,
     // component: Home,
     component: () => import('@/views/Home.vue'),
     meta: { requiresSidebar: true }
@@ -42,13 +49,6 @@ const routes: Array<RouteRecordRaw> = [
     name: AppPageName.AppRunning,
     component: () => import('@/views/AppRunningWindow.vue'),
     meta: { requiresSidebar: false } // sidebar dose not display.
-  },
-  {
-    path: AppPagePath.UniversalAppHome,
-    name: AppPageName.UniversalAppHome,
-    component: () => import('@/views/UniversalAppHome.vue'),
-    // In the client app, sidebar should display.
-    meta: { requiresSidebar: true }
   },
   // {
   //   path: AppPagePath.UniversalAppList,
