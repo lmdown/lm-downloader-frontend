@@ -8,9 +8,13 @@ export default class MainMenuUtil {
     })
     if(index === -1) {
       switch (routerName) {
+        case AppPageName.UniversalAppCat:
+          index = 0
+          break;
+
         case AppPageName.AppDetail:
         case AppPageName.StoryPostDetail:
-          index = 0
+          index = 1
           break;
 
         default:

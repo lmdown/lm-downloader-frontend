@@ -6,7 +6,7 @@ export interface UniversalAICategoryDTO {
   name_zh: string
   icon?: string
   shortDesc?: string
-  alias: string
+  alias?: string
   subCats?: UniversalAICategoryDTO[]
   apps?: UniversalAIAppDTO[]
 }

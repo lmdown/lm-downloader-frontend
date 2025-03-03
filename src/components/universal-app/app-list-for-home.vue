@@ -1,7 +1,6 @@
 <template>
   <div class="all-cats-list-container my-4">
     <template :key="index" v-for="(navItem, index) in navCatsData">
-      <!-- main{{ index }}:{{ navItem.name_en }} -->
       <AppListOfCat :is-app-list-homepage="true" :catetory="navItem"></AppListOfCat>
     </template>
   </div>

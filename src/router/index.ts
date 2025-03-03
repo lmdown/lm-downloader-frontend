@@ -2,8 +2,6 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 import { AppPageName, AppPagePath } from "./AppPagePath";
 
-
-// 路由信息
 const routes: Array<RouteRecordRaw> = [
   {
     path: AppPagePath.Home,
@@ -50,19 +48,18 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/AppRunningWindow.vue'),
     meta: { requiresSidebar: false } // sidebar dose not display.
   },
-  // {
-  //   path: AppPagePath.UniversalAppList,
-  //   name: AppPageName.UniversalAppList,
-  //   component: () => import('@/views/UniversalAppList.vue'),
-  //   meta: { requiresSidebar: true }
-  // },
+  {
+    path: AppPagePath.UniversalAppCat,
+    name: AppPageName.UniversalAppCat,
+    component: () => import('@/views/UniversalAppCat.vue'),
+    meta: { requiresSidebar: true }
+  },
   // {
   //   path: AppPagePath.UniversalAppDetail,
   //   name: AppPageName.UniversalAppDetail,
   //   component: () => import('@/views/UniversalAppDetail.vue'),
   //   meta: { requiresSidebar: true }
   // },
-
 ];
 
 // 路由器

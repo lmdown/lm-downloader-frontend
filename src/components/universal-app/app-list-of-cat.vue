@@ -38,8 +38,7 @@
           </div>
         </div> -->
       </v-col>
-
-      <v-col v-if="allApps.length > 17"
+      <v-col v-if="allApps.length > 15 && isAppListHomepage"
         cols="12" xs="12" sm="6" md="4" lg="3"  xl="2">
         <div style="height: 72px; padding-left: 32px; display: flex; align-items: center; justify-content: start;">
           <a style="color: rgb(var(--v-theme-primary));" href="#" @click.prevent="showMoreApps()">
@@ -59,6 +58,8 @@ import { UniversalAICategoryDTO } from '@/types/universal-app/UniversalAICategor
 import CatUtil from '@/util/universal-app/CatUtil';
 // import UAppUtil from '@/util/universal-app/UAppUtil';
 import SingleAppItem from './single-app-item.vue';
+import router from '@/router';
+import { AppPageName, AppPagePath } from '@/router/AppPagePath';
 
 const props = defineProps<{
   catetory: UniversalAICategoryDTO,
@@ -115,7 +116,7 @@ const fetchAppData = async () => {
     let apps = allApps.value
     // show limited apps for home page
     if(props.isAppListHomepage) {
-      apps = allApps.value.slice(0,17)
+      apps = allApps.value.slice(0,15)
     }
     selectedCategory.value.apps = apps
     loading.value = false
@@ -152,7 +153,17 @@ const updateSelectedCat = (subCat) => {
 }
 
 const showMoreApps = () => {
-
+  if(selectedCategory.value?.id) {
+    const {name_en, name_zh} = selectedCategory.value
+    router.push({
+      name: AppPageName.UniversalAppCat,
+      params: {
+        id: selectedCategory.value?.id,
+        name_en: name_en,
+        name_zh: name_zh
+      }
+    })
+  }
 }
 
 </script>
