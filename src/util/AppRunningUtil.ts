@@ -2,6 +2,7 @@ import { IPCHandleName } from "@/constant/IPCHandleName"
 import { addQueryParamsToPath } from "./QueryParam"
 import { AppPagePath } from "@/router/AppPagePath"
 import { AppScriptType } from "@/constant/AppScriptType"
+import { UniversalAIAppDTO } from "@/types/universal-app/UniversalAIAppDTO"
 
 export default class AppRunningUtil {
 
@@ -16,6 +17,20 @@ export default class AppRunningUtil {
     }
     console.log('openAppRunningWindow', instanceId, script, reloadPage)
     window.ipcRenderer?.invoke(IPCHandleName.OPEN_RUNNING_WINDOW, instanceId, runningPagePath, reloadPage)
+  }
+
+  static openUniversalAppRunningWindow(uniAppDTO: UniversalAIAppDTO) {
+    const path: string = AppPagePath.UniversalAppRunning
+    let runningPagePath = path.replace(':name', encodeURIComponent(uniAppDTO.name))
+    if(uniAppDTO.url) {
+      runningPagePath = runningPagePath.replace(':url', encodeURIComponent(uniAppDTO.url))
+    }
+    if(uniAppDTO.icon) {
+      runningPagePath = runningPagePath.replace(':icon', encodeURIComponent(uniAppDTO.icon))
+    }
+    window.ipcRenderer?.invoke(
+      IPCHandleName.OPEN_RUNNING_WINDOW, uniAppDTO.name, runningPagePath
+    )
   }
 
 }

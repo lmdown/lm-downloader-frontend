@@ -54,12 +54,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/UniversalAppCat.vue'),
     meta: { requiresSidebar: true }
   },
-  // {
-  //   path: AppPagePath.UniversalAppDetail,
-  //   name: AppPageName.UniversalAppDetail,
-  //   component: () => import('@/views/UniversalAppDetail.vue'),
-  //   meta: { requiresSidebar: true }
-  // },
+  {
+    path: AppPagePath.UniversalAppRunning,
+    name: AppPageName.UniversalAppRunning,
+    component: () => import('@/views/UniversalAppRunningWindow.vue'),
+    meta: { requiresSidebar: false }
+  },
 ];
 
 // 路由器

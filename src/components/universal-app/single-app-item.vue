@@ -60,6 +60,10 @@
 .cat-item-container .app-list .app-item .app-title {
   font-weight: bold;
   font-size: 1.2rem;
+  width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  height: 1.5rem;
 }
 
 .cat-item-container .app-list .app-item .app-short-desc {
@@ -75,10 +79,12 @@
 </style>
 <script lang="ts" setup>
 import { getAIAppInfoByInstallName } from '@/api/app-info';
+import { checkSupportWebview } from '@/client-api/lmd-system';
 import router from '@/router';
 import { AppPageName } from '@/router/AppPagePath';
 import { AIAppDTO } from '@/types/AIAppDTO';
 import { UniversalAIAppDTO } from '@/types/universal-app/UniversalAIAppDTO';
+import AppRunningUtil from '@/util/AppRunningUtil';
 import UAppUtil from '@/util/universal-app/UAppUtil';
 
 
@@ -94,18 +100,26 @@ const downloadableVisible = computed(() => {
   return UAppUtil.checkIsDownloadable(props.appData)
 })
 
-const onAppClick = () => {
+const onAppClick = async () => {
   const {refLinks, url} = props.appData
   let targetUrl
+
   if(props.appData.alias) {
     gotoDetailPage()
+    return
   } else if(refLinks) {
     const refLinksArr = JSON.parse(refLinks)
     targetUrl = refLinksArr[0].homepage
   } else if(url) {
     targetUrl = url
   }
-  simulateAnchorClick(targetUrl)
+  const isSupportWebview = await checkSupportWebview()
+  console.log('isSupportWebview', isSupportWebview)
+  if (isSupportWebview) {
+    openRunningWin(targetUrl)
+  } else {
+    simulateAnchorClick(targetUrl)
+  }
 }
 
 const gotoDetailPage = async () => {
@@ -115,6 +129,12 @@ const gotoDetailPage = async () => {
     name: AppPageName.AppDetail,
     params: { id: appId }
   })
+}
+
+const openRunningWin = (targetUrl: string) => {
+  const appData = Object.assign({}, props.appData)
+  appData.url = targetUrl
+  AppRunningUtil.openUniversalAppRunningWindow(appData)
 }
 
 const simulateAnchorClick = (url) => {

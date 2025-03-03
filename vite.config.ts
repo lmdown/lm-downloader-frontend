@@ -12,7 +12,13 @@ import VuetifyPlugin from 'vite-plugin-vuetify'
 export default defineConfig({
   base: './',
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag === 'webview',
+        },
+      },
+    }),
     // visualizer({
     //   open: true,
     // }),

@@ -19,5 +19,7 @@ export const IPCHandleName = {
   EXIT_APP: 'exit-app',
   RUN_COMMAND: 'run-command',
   KILL_PROCESSES: 'kill-processes',
+
+  SUPPORT_WEBVIEW_TAG: 'support-webview-tag',
 }
 
