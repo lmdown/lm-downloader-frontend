@@ -1,5 +1,6 @@
 <template>
-  <div class="cat-item-container" ref="catItemContainerRef">
+  <div class="cat-item-container" ref="catItemContainerRef"
+    style="scroll-margin-top: 80px;">
     <div class="cat-title mb-4">
       <div class="main-title">
         {{ getLocaleName(catetory) }}

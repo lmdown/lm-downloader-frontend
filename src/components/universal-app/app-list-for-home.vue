@@ -1,7 +1,7 @@
 <template>
   <div class="all-cats-list-container my-4">
     <template :key="index" v-for="(navItem, index) in navCatsData">
-      <AppListOfCat :is-app-list-homepage="true" :catetory="navItem"></AppListOfCat>
+      <AppListOfCat :id="'appcat-'+index" :is-app-list-homepage="true" :catetory="navItem"></AppListOfCat>
     </template>
   </div>
 </template>
@@ -21,4 +21,17 @@ const props = defineProps<{
   navCatsData: UniversalAICategoryDTO[],
 }>()
 
+watch(() => props.modelValue, () => {
+  scrollToCat(props.modelValue)
+})
+
+const scrollToCat = (index: number) => {
+  const element = document.getElementById('appcat-'+index);
+  if (element) {
+    element.scrollIntoView({
+       behavior: 'smooth',
+
+      });
+  }
+}
 </script>

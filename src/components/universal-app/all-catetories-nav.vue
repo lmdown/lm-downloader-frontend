@@ -46,13 +46,13 @@ const props = defineProps<{
 }>()
 
 onMounted(() => {
-  console.log('onMounted props.navCatsData', props.navCatsData)
+  // console.log('onMounted props.navCatsData', props.navCatsData)
   updateNavData()
 })
 
 
 watch(() => props.navCatsData, async () => {
-  console.log('watch props.navCatsData', props.navCatsData)
+  // console.log('watch props.navCatsData', props.navCatsData)
   updateNavData()
 })
 
