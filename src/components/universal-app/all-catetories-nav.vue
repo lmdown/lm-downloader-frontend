@@ -165,6 +165,8 @@ const getIconClass = (alias: string) => {
   text-align: center;
   vertical-align: middle;
   justify-content: center;
+  font-size: 14px;
+  line-height: 100%;
   height: 40px;
   width: 138px;
 }

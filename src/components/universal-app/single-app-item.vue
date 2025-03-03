@@ -15,10 +15,14 @@
     <div class="app-title-container">
       <div class="app-title">
         {{ appData.name }}
+        <v-tooltip open-delay="1200"
+          activator="parent" location="top" transition="false">
+          {{ appData.name }}
+        </v-tooltip>
       </div>
       <div class="app-short-desc" v-if="desc">
         {{ desc }}
-        <v-tooltip
+        <v-tooltip open-delay="1000"
           activator="parent" location="bottom" transition="false">
           {{ desc }}
         </v-tooltip>
