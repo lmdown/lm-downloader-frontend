@@ -59,7 +59,7 @@
 }
 .cat-item-container .app-list .app-item .app-title {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   width: 100%;
   overflow: hidden;
   word-break: break-all;
