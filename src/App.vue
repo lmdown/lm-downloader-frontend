@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import AppDefaultLayout from './AppDefaultLayout.vue';
 import AppNoSidebarLayout from './AppNoSidebarLayout.vue';
+import AppLiteLayout from './AppLiteLayout.vue';
 import ToastMessage from './components/common/toast-message.vue';
 import router from './router'
 import { ShowToastMessage } from '@/types/toast-message-type'
@@ -18,7 +19,10 @@ const toastType = ref<string>('primary')
 
 const layout =  computed(() => {
   const requiresSidebar: boolean | undefined | unknown  = router.currentRoute.value?.meta?.requiresSidebar
-  if(requiresSidebar === true) {
+  const liteLayout: boolean | undefined | unknown  = router.currentRoute.value?.meta?.liteLayout
+  if(liteLayout === true) {
+    return AppLiteLayout
+  }else if(requiresSidebar === true) {
     return AppDefaultLayout
   } else if(requiresSidebar === false) {
     return AppNoSidebarLayout

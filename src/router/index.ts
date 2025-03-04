@@ -60,6 +60,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/UniversalAppRunningWindow.vue'),
     meta: { requiresSidebar: false }
   },
+  {
+    path: AppPagePath.UniversalAppTitle,
+    name: AppPageName.UniversalAppTitle,
+    component: () => import('@/views/UniversalAppTitle.vue'),
+    meta: { requiresSidebar: false, liteLayout: true }
+  },
 ];
 
 // 路由器

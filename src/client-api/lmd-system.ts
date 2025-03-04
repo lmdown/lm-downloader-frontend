@@ -30,6 +30,18 @@ export const checkSupportWebview = async () => {
   return result
 }
 
+export const checkSupportUAppWin = async () => {
+  let result = false
+  if (window.ipcRenderer) {
+    try {
+      result = await window.ipcRenderer?.invoke(IPCHandleName.SUPPORT_UAPP_WIN)
+    } catch(err) {
+      console.error('SUPPORT_UAPP_WIN', err)
+    }
+  }
+  return result
+}
+
 export const killProcesses = async (names: string[]) => {
   if (window.ipcRenderer) {
     return await window.ipcRenderer?.invoke(IPCHandleName.KILL_PROCESSES, names)

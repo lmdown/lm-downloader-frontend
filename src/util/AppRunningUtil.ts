@@ -19,7 +19,7 @@ export default class AppRunningUtil {
     window.ipcRenderer?.invoke(IPCHandleName.OPEN_RUNNING_WINDOW, instanceId, runningPagePath, reloadPage)
   }
 
-  static openUniversalAppRunningWindow(uniAppDTO: UniversalAIAppDTO) {
+  static openUniversalAppWebview(uniAppDTO: UniversalAIAppDTO) {
     const path: string = AppPagePath.UniversalAppRunning
     let runningPagePath = path.replace(':name', encodeURIComponent(uniAppDTO.name))
     if(uniAppDTO.url) {
@@ -30,6 +30,20 @@ export default class AppRunningUtil {
     }
     window.ipcRenderer?.invoke(
       IPCHandleName.OPEN_RUNNING_WINDOW, uniAppDTO.name, runningPagePath
+    )
+  }
+
+  static openUAppLiteWindow(uniAppDTO: UniversalAIAppDTO) {
+    const path: string = AppPagePath.UniversalAppTitle
+    let runningPagePath = path.replace(':name', encodeURIComponent(uniAppDTO.name))
+    if(uniAppDTO.url) {
+      runningPagePath = runningPagePath.replace(':url', encodeURIComponent(uniAppDTO.url))
+    }
+    if(uniAppDTO.icon) {
+      runningPagePath = runningPagePath.replace(':icon', encodeURIComponent(uniAppDTO.icon))
+    }
+    window.ipcRenderer?.invoke(
+      IPCHandleName.OPEN_UAPP_RUNNING_WINDOW, uniAppDTO.name, runningPagePath, uniAppDTO
     )
   }
 

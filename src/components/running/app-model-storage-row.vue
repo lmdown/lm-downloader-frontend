@@ -121,8 +121,10 @@ const progressBarBufferValue = ref(0)
 const currentDirInfo = ref<LocalDirectoryInfo | null>(null)
 
 onMounted(async () => {
-  await initDefaultModelsDir()
-  updateModelFileSize()
+  if(AppInfoUtil.appIsOllama(props.installedInstance?.installName)) {
+    await initDefaultModelsDir()
+    updateModelFileSize()
+  }
 })
 
 const allModelFileSize = ref<string | null>(null)

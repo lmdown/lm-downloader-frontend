@@ -79,7 +79,7 @@
 </style>
 <script lang="ts" setup>
 import { getAIAppInfoByInstallName } from '@/api/app-info';
-import { checkSupportWebview } from '@/client-api/lmd-system';
+import { checkSupportUAppWin, checkSupportWebview } from '@/client-api/lmd-system';
 import router from '@/router';
 import { AppPageName } from '@/router/AppPagePath';
 import { AIAppDTO } from '@/types/AIAppDTO';
@@ -114,9 +114,13 @@ const onAppClick = async () => {
     targetUrl = url
   }
   const isSupportWebview = await checkSupportWebview()
+  const isSupportUAppWin = await checkSupportUAppWin()
   console.log('isSupportWebview', isSupportWebview)
-  if (isSupportWebview) {
-    openRunningWin(targetUrl)
+  console.log('isSupportUAppWin', isSupportWebview)
+  if (isSupportUAppWin) {
+    openUAppLiteWindow(targetUrl)
+  } else if (isSupportWebview) {
+    openRunningWinWebview(targetUrl)
   } else {
     simulateAnchorClick(targetUrl)
   }
@@ -131,10 +135,16 @@ const gotoDetailPage = async () => {
   })
 }
 
-const openRunningWin = (targetUrl: string) => {
+const openRunningWinWebview = (targetUrl: string) => {
   const appData = Object.assign({}, props.appData)
   appData.url = targetUrl
-  AppRunningUtil.openUniversalAppRunningWindow(appData)
+  AppRunningUtil.openUniversalAppWebview(appData)
+}
+
+const openUAppLiteWindow = (targetUrl: string) => {
+  const appData = Object.assign({}, props.appData)
+  appData.url = targetUrl
+  AppRunningUtil.openUAppLiteWindow(appData)
 }
 
 const simulateAnchorClick = (url) => {
